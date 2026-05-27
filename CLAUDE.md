@@ -34,6 +34,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **パスエイリアス `@/*` → リポジトリ直下**（`tsconfig.json`）。`@/components/...`・`@/hooks/...`・`@/constants/...` を優先し、相対パスを混在させないでください。
 - **テーマ／配色**は `constants/theme.ts` の `Colors` と `hooks/use-color-scheme.ts`（Web 用は `.web.ts` で分岐）、`hooks/use-theme-color.ts`、`components/themed-text.tsx`・`themed-view.tsx` で集中管理。色やフォントは直書きせず Themed 系コンポーネント／フックを通します。
 
+## 開発チケット（`docs/`）
+
+機能ごとの実装チケットを `docs/00-INDEX.md` 〜 `docs/17-eas-build-and-playstore.md` に分割しています。新しい機能に着手する前に、必ず該当チケットを開いて「ステータス」と「Todo」を更新しながら進めてください。
+
+- **チケットの一次ソース**は `REQUIREMENTS.md`、`docs/` 配下はスコープと進捗管理に特化したサマリです。両者で齟齬が出た場合は `REQUIREMENTS.md` を正とし、チケットを更新します。
+- **チケットの追加・改廃**は `docs/00-INDEX.md` の表とリンクを必ず同期更新してください。
+- **Todo の表記ルール**:
+  - 未着手は `- [ ]`、完了したら `- [×]` に書き換えます（`x` ではなく `×`＝全角バツ／U+00D7 を使用）。
+  - 途中で要件追加が発生した場合は、その項目を `- [ ]` で追記してから着手します。
+  - 既存 Todo を削除するのではなく、用済みなら `- [×]` で完了扱いにして履歴を残します。
+- **チケット冒頭の「ステータス」行**は `pending → in_progress → done` で更新します。
+- 横断的な依存（依存追加、ディレクトリ整備、i18n キー）は基盤系チケット（01〜03、15）に集約し、機能チケットからはそちらを参照してください。
+
 ## REQUIREMENTS.md に書かれた実装方針（要点）
 
 実装に入る前に `REQUIREMENTS.md` 全文を確認してください。特に外せない方針は以下です。
