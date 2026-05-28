@@ -1,4 +1,5 @@
 import '../global.css';
+import '@/src/i18n';
 
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
@@ -29,7 +30,6 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      {/* TODO(ticket-02): wrap with <I18nProvider> once expo-localization + i18n-js are set up */}
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />

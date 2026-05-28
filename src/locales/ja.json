@@ -1,1 +1,17 @@
-{}
+{
+  "common": {
+    "appName": "お医者さんナビ"
+  },
+  "home": {
+    "title": "お医者さんナビ",
+    "setupComplete": "セットアップ完了（ticket 06 で本実装）",
+    "tabLabel": "ホーム"
+  },
+  "onboarding": {},
+  "search": {},
+  "hospital": {},
+  "symptoms": {},
+  "emergency": {},
+  "transport": {},
+  "settings": {}
+}
