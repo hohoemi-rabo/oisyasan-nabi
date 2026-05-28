@@ -1,0 +1,2 @@
+# Copy to .dev.vars (gitignored) and fill in actual key for local `wrangler dev`.
+GEMINI_API_KEY=__YOUR_GEMINI_API_KEY__
