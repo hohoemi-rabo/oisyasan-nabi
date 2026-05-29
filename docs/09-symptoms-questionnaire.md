@@ -1,6 +1,6 @@
 # 09. 症状アンケート（ステップ形式）
 
-**ステータス**: pending
+**ステータス**: done
 **関連要件**: REQUIREMENTS.md §3.3.1
 **依存**: 01・02・06
 **ブロックする**: 10
@@ -19,16 +19,17 @@
 
 ## Todo
 
-- [ ] `app/symptoms/questionnaire.tsx` を作成（内部ステート or サブルートで複数ステップを管理）
-- [ ] ステップ定義：location → duration → symptoms → (lumpSize) → conditions → medicine → memo → confirm
-- [ ] 大きなチェックボックスコンポーネント `components/symptoms/big-checkbox.tsx`（最小 48dp）
-- [ ] 複数選択 / 単一選択 / 自由記述 / トグルの 4 種を共通化
-- [ ] `useQuestionnaireStore`（Zustand + AsyncStorage 永続化）：各フィールドのセッターと「下書きクリア」アクション
-- [ ] プログレスバーコンポーネント
-- [ ] 「しこり」選択時の `lumpSize` ステップ条件分岐
-- [ ] 戻るボタンで前ステップ、最初のステップで戻るとアンケート開始確認モーダル
-- [ ] confirm ステップで入力サマリーを表示し、「AI で判定する」ボタン
-- [ ] `locales/ja.json` の `symptoms.questionnaire.*` キー
+- [×] `app/symptoms/questionnaire.tsx` を作成（単一画面 + `currentStep` を Zustand 駆動の内部ステートで複数ステップ管理）
+- [×] ステップ定義：location → duration → symptoms → (lumpSize) → conditions → medicine → memo → confirm（動的ステップ配列）
+- [×] 大きなチェックボックスコンポーネント `components/symptoms/big-checkbox.tsx`（最小 56dp、multi/single variant）
+- [×] 複数選択 / 単一選択 / 自由記述 / トグルの 4 種を共通化（multi/single=BigCheckbox、text=TextInput、toggle=Switch、レイアウトは `question-scaffold.tsx`）
+- [×] `useQuestionnaireStore`（Zustand + AsyncStorage 永続化）：各フィールドのセッターと「下書きクリア」(`clearDraft`) アクション。`hasHydrated` + `onRehydrateStorage` で再開時のフラッシュ防止
+- [×] プログレスバーコンポーネント（`questionnaire-progress.tsx`、条件分岐で変動する総数に対応する割合バー）
+- [×] 「しこり」選択時の `lumpSize` ステップ条件分岐
+- [×] 戻るボタンで前ステップ、最初のステップで戻ると中止確認 `Alert`（中止で `clearDraft` + `router.back`）
+- [×] confirm ステップで入力サマリーを表示し、「AI で判定する」ボタン → `router.push('/symptoms/results')`
+- [×] `locales/ja.json` の `symptoms.questionnaire.*` キー
+- [×] `app/symptoms/results.tsx` をプレースホルダ先置き（ticket 10、Typed Routes 解決のため）
 
 ## 留意事項
 

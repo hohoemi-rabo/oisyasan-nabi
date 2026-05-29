@@ -155,7 +155,124 @@
     },
     "note": "備考"
   },
-  "symptoms": {},
+  "symptoms": {
+    "questionnaire": {
+      "progress": "{{current}} / {{total}}",
+      "back": "戻る",
+      "next": "次へ",
+      "steps": {
+        "location": {
+          "title": "どこの調子が悪いですか？",
+          "description": "当てはまる部位をすべて選んでください（複数選択できます）"
+        },
+        "duration": {
+          "title": "いつから続いていますか？",
+          "description": "いちばん近いものを 1 つ選んでください"
+        },
+        "symptoms": {
+          "title": "どんな症状がありますか？",
+          "description": "当てはまる症状をすべて選んでください（複数選択できます）"
+        },
+        "lumpSize": {
+          "title": "しこりの大きさはどのくらいですか？",
+          "description": "だいたいの大きさを 1 つ選んでください"
+        },
+        "conditions": {
+          "title": "持病はありますか？",
+          "description": "当てはまるものをすべて選んでください（任意）"
+        },
+        "medicine": {
+          "title": "ふだん飲んでいるお薬はありますか？",
+          "description": "服用中のお薬があれば「はい」にしてください（任意）"
+        },
+        "memo": {
+          "title": "ほかに伝えたいことはありますか？",
+          "description": "気になることを自由に書いてください（任意）"
+        },
+        "confirm": {
+          "title": "入力内容の確認",
+          "description": "この内容で AI に判定してもらいます"
+        }
+      },
+      "options": {
+        "location": {
+          "throat": "のど",
+          "chest": "むね",
+          "stomach": "おなか",
+          "leg": "あし",
+          "arm": "うで",
+          "head": "あたま",
+          "face": "かお",
+          "back": "せなか",
+          "lowerBack": "こし",
+          "other": "その他"
+        },
+        "duration": {
+          "today": "今日",
+          "fewDays": "2〜3日前",
+          "oneWeek": "1週間前",
+          "twoWeeks": "2週間前",
+          "overMonth": "1ヶ月以上前"
+        },
+        "symptoms": {
+          "pain": "痛い",
+          "lump": "しこり",
+          "itch": "かゆい",
+          "swelling": "赤い・はれ",
+          "fever": "熱",
+          "cough": "せき",
+          "breathless": "息苦しい",
+          "dizzy": "めまい",
+          "other": "その他"
+        },
+        "lumpSize": {
+          "under1cm": "1cm未満",
+          "from1to3cm": "1〜3cm",
+          "over3cm": "3cm以上",
+          "unknown": "わからない"
+        },
+        "conditions": {
+          "hypertension": "高血圧",
+          "diabetes": "糖尿病",
+          "heartDisease": "心臓病",
+          "stroke": "脳卒中",
+          "cancer": "がん",
+          "asthma": "ぜんそく",
+          "kidneyDisease": "腎臓病",
+          "allergy": "アレルギー",
+          "other": "その他",
+          "none": "特になし"
+        }
+      },
+      "medicine": {
+        "label": "服用中のお薬がある",
+        "yes": "はい",
+        "no": "いいえ"
+      },
+      "memo": {
+        "placeholder": "例: 昨夜から熱が下がりません"
+      },
+      "confirm": {
+        "submit": "AI で判定する",
+        "emptyValue": "なし",
+        "fields": {
+          "location": "部位",
+          "duration": "期間",
+          "symptoms": "症状",
+          "lumpSize": "しこりの大きさ",
+          "conditions": "持病",
+          "medicine": "服薬",
+          "memo": "自由記述"
+        }
+      },
+      "abort": {
+        "title": "アンケートを中止しますか？",
+        "message": "入力した内容は削除されます。",
+        "confirm": "中止する",
+        "cancel": "続ける"
+      }
+    }
+  },
   "emergency": {},
   "transport": {},
   "settings": {}
