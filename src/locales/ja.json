@@ -90,7 +90,71 @@
       "retry": "再試行"
     }
   },
-  "hospital": {},
+  "hospital": {
+    "title": "病院詳細",
+    "loading": "読み込み中…",
+    "error": "病院情報の取得に失敗しました",
+    "retry": "再試行",
+    "notFound": {
+      "title": "病院情報が見つかりません",
+      "back": "戻る"
+    },
+    "openNow": "営業中",
+    "closed": "営業時間外",
+    "info": {
+      "address": "住所",
+      "phone": "電話",
+      "openingHours": "営業時間"
+    },
+    "actions": {
+      "call": "電話をかける",
+      "map": "地図で開く",
+      "website": "Web サイト"
+    },
+    "favorite": {
+      "add": "かかりつけ医に登録",
+      "remove": "かかりつけ医を解除",
+      "limitReached": "かかりつけ医は最大 {{limit}} 件です"
+    },
+    "schedule": {
+      "title": "診療時間",
+      "morning": "午前",
+      "afternoon": "午後",
+      "closed": "休診",
+      "day": {
+        "0": "日",
+        "1": "月",
+        "2": "火",
+        "3": "水",
+        "4": "木",
+        "5": "金",
+        "6": "土"
+      }
+    },
+    "facilities": {
+      "title": "設備",
+      "barrierFree": "バリアフリー",
+      "parking": "駐車場",
+      "parkingCapacity": "{{count}}台",
+      "emergency": "救急対応",
+      "shuttleBus": "送迎バス",
+      "onlineConsultation": "オンライン診療"
+    },
+    "transport": {
+      "title": "この地域の通院サービス",
+      "shuttleBus": "病院送迎バス",
+      "bookingPhone": "電話で予約",
+      "bookingWeb": "Web で予約",
+      "serviceTypes": {
+        "route_bus": "路線バス",
+        "demand": "デマンド",
+        "taxi": "タクシー",
+        "welfare_taxi": "福祉タクシー",
+        "shuttle": "送迎"
+      }
+    },
+    "note": "備考"
+  },
   "symptoms": {},
   "emergency": {},
   "transport": {},
