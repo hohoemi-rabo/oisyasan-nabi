@@ -8,10 +8,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Phase 1 MVP「お医者さんナビ」（南信地域向け医療機関ナビ Android アプリ）の実装フェーズ。
 
-- **基盤チケット 01・02・03 は done**（プロジェクトスケルトン、i18n 基盤、Cloudflare Workers AI プロキシ）。`src/` 配下のディレクトリ、NativeWind v4、Zustand ストア、Supabase クライアント、`t()` 関数、`workers/` サブプロジェクトはすべて使える状態。
-- これから着手するのは機能チケット 05〜14 と横断系 15（ローカルキャッシュ）。依存関係は `docs/00-INDEX.md`。
+- **完了チケット**: 01（基盤）・02（i18n）・03（Workers AI、コードのみ）・04（Web 管理画面、別リポで完了済み）・05（オンボーディング）・06（ホーム + 5 タブ）・07（条件検索）・08（病院詳細）。検索 → 詳細 → 電話 / 地図 / Web / かかりつけ登録の動線が通った状態。
+- **残り**: 09（症状アンケート）・10（AI 結果）・11（緊急時）・12（通院）・13（設定）・14（かかりつけ一覧）・15（ローカルキャッシュ）・16（検索ログ拡張）・17（EAS / Play Store）。依存関係は `docs/00-INDEX.md`。
 - 03 の Workers は **コードのみ完成**、本番デプロイ（Rate Limiting namespace 確定 → `wrangler secret put GEMINI_API_KEY` → `wrangler deploy` → URL を `.env.local` に登録）は手動で残っている。詳細は `workers/README.md`。
-- `app/(tabs)/index.tsx` は ticket 06 が本実装する想定のプレースホルダ。`npm run reset-project` スクリプトは使わない（手動で残置整理済み）。
+- ticket 07 以降のプレースホルダ画面（`/symptoms/questionnaire`・`(tabs)/{emergency,transport,settings}`・`/hospital/[id]`→既に本実装済み）は `src/components/common/screen-placeholder.tsx` でラベルだけ表示。`router.push` の Typed Routes 解決のため後続チケット着手前から存在させる方針。
+- `npm run reset-project` スクリプトは使わない（手動で残置整理済み）。
 
 ## ルールの所在（context 節約のための分割）
 
@@ -38,6 +39,7 @@ Phase 1 MVP「お医者さんナビ」（南信地域向け医療機関ナビ An
 | Lint | `npm run lint` |
 | 型チェック | `npx tsc --noEmit` |
 | 互換性チェック | `npx expo install --check` / `npx expo-doctor` |
+| バンドル疎通確認（チケット完了時） | `npx expo start --port 8082` を背景起動 → `curl 'http://localhost:8082/node_modules/expo-router/entry.bundle?platform=android&dev=true&minify=false'` で `HTTP 200` を確認 → `pkill -f "expo start --port 8082"` |
 | 依存追加（アプリ本体） | `npx expo install <pkg>` |
 | Workers 依存インストール | `cd workers && npm install` |
 | Workers ローカル開発 | `cd workers && npm run dev`（`http://127.0.0.1:8787`） |
@@ -64,3 +66,4 @@ Phase 1 MVP「お医者さんナビ」（南信地域向け医療機関ナビ An
 - 個人開発リポジトリ。グローバルルール通り `main` へ直接コミットし、ブランチは切らない。
 - コミットメッセージは Conventional Commits（`feat:` / `fix:` / `docs:` / `refactor:` / `test:` / `chore:`）を英語で。
 - 新しい依存追加は **必ず `npx expo install <pkg>`**。詳細は `.claude/rules/expo-sdk-54.md` の「依存追加・バージョン管理」を参照。
+- **チケット完了の判定基準** = tsc / lint / expo-doctor / 上記「バンドル疎通確認」が 4 つとも通る。`expo-doctor` と `tsc` は `babel.config.js` を読まないので、Metro バンドルが通ることまで確認しないと「ビルドが落ちる潜在バグ」を見落とす（ticket 01 で `babel-preset-expo` 依存登録漏れが ticket 05 着手まで発覚しなかった事例あり）。

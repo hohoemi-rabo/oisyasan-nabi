@@ -73,3 +73,4 @@ paths:
 - **依存追加は必ず `npx expo install <pkg>`**。`npm install` 直叩きは SDK 54 非互換版を引きやすい。
 - `npx expo install --check` で依存バージョンの不整合を検出。`expo-doctor` も SDK 54 互換チェックに有用。
 - ネイティブモジュールを含むパッケージは New Architecture 対応版を選択（Reanimated v4・worklets v0.5 互換）。
+- **カスタム `babel.config.js` を作る/触る時は `babel-preset-expo` を明示依存に**。SDK 54 のデフォルトは `babel.config.js` 不要で Metro 内蔵 transformer が SDK 同梱版を使うが、NativeWind v4 セットアップで `babel.config.js` を新規追加すると Metro はトップレベル依存の `babel-preset-expo` を `require.resolve` するため、`npx expo install babel-preset-expo` で `package.json` に明示登録する必要がある。`tsc` / `lint` / `expo install --check` / `expo-doctor` はどれもバンドルを走らせないので、この欠落は実際に `expo start` するまで検出されない（過去に本プロジェクトで発生、修正済み）。**チケット完了前に `CLAUDE.md` の「バンドル疎通確認」コマンドを必ず実行**。
