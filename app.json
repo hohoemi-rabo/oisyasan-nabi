@@ -40,7 +40,15 @@
         }
       ],
       "expo-localization",
-      "expo-font"
+      "expo-font",
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "症状まとめを画像として保存するために写真ライブラリへのアクセスを許可してください。",
+          "savePhotosPermission": "症状まとめを画像として保存するために写真ライブラリへのアクセスを許可してください。",
+          "isAccessMediaLocationEnabled": false
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,

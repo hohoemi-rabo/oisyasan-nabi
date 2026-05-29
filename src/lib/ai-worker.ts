@@ -5,7 +5,9 @@ import type {
   FollowUpResponse,
 } from '@/src/types/ai';
 
-const TIMEOUT_MS = 8000;
+// AI 判定は 5 秒（REQUIREMENTS §3.3.2）、追加質問生成は 10 秒（§5.2）。
+const RECOMMEND_TIMEOUT_MS = 5000;
+const FOLLOW_UP_TIMEOUT_MS = 10000;
 
 function workerUrl(): string {
   const url = process.env.EXPO_PUBLIC_AI_WORKER_URL;
@@ -13,9 +15,9 @@ function workerUrl(): string {
   return url.replace(/\/$/, '');
 }
 
-async function postJson<T>(path: string, body: unknown): Promise<T> {
+async function postJson<T>(path: string, body: unknown, timeoutMs: number): Promise<T> {
   const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
+  const timer = setTimeout(() => ctrl.abort(), timeoutMs);
   try {
     const res = await fetch(`${workerUrl()}${path}`, {
       method: 'POST',
@@ -31,9 +33,9 @@ async function postJson<T>(path: string, body: unknown): Promise<T> {
 }
 
 export function fetchAiRecommend(payload: AIRecommendRequest): Promise<AIRecommendResponse> {
-  return postJson<AIRecommendResponse>('/api/ai-recommend', payload);
+  return postJson<AIRecommendResponse>('/api/ai-recommend', payload, RECOMMEND_TIMEOUT_MS);
 }
 
 export function fetchFollowUp(payload: FollowUpRequest): Promise<FollowUpResponse> {
-  return postJson<FollowUpResponse>('/api/follow-up', payload);
+  return postJson<FollowUpResponse>('/api/follow-up', payload, FOLLOW_UP_TIMEOUT_MS);
 }

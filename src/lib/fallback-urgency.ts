@@ -1,6 +1,8 @@
-import type { UrgencyLevel } from './schemas';
+// Workers 不通・タイムアウト時のアプリ内ルールベース緊急度判定。
+// workers/src/fallback-urgency.ts の移植。症状値はアンケート
+// （src/constants/symptom-options.ts）のカノニカル値に合わせている。
+import type { UrgencyLevel } from '@/src/types/ai';
 
-// アンケート（src/constants/symptom-options.ts）のカノニカル症状値に合わせる。
 const EMERGENCY_SYMPTOMS = ['息苦しい', 'めまい'];
 const SOON_SYMPTOMS = ['熱', '痛い'];
 

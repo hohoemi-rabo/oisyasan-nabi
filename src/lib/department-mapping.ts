@@ -1,3 +1,7 @@
+// 部位 → 診療科マッピング（フォールバック判定用）。
+// workers/src/department-mapping.ts の移植。部位・症状値はアンケート
+// （src/constants/symptom-options.ts）のカノニカル値に合わせている。
+
 const DEPARTMENT_MAPPING: Record<string, string[]> = {
   のど: ['耳鼻いんこう科', '内科'],
   むね: ['内科', '循環器内科', '呼吸器内科'],
@@ -11,7 +15,6 @@ const DEPARTMENT_MAPPING: Record<string, string[]> = {
   その他: ['内科'],
 };
 
-// アンケート（src/constants/symptom-options.ts）のカノニカル症状値に合わせる。
 const EMERGENCY_SYMPTOMS = ['息苦しい', '熱', 'めまい'];
 const SKIN_SYMPTOMS = ['かゆい', '赤い・はれ', 'しこり'];
 
