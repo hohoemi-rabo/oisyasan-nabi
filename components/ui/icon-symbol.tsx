@@ -18,7 +18,14 @@ const MAPPING = {
   'paperplane.fill': 'send',
   'chevron.left.forwardslash.chevron.right': 'code',
   'chevron.right': 'chevron-right',
+  'magnifyingglass': 'search',
+  'cross.case.fill': 'emergency',
+  'bus.fill': 'directions-bus',
+  'gearshape.fill': 'settings',
+  'stethoscope': 'medical-services',
 } as IconMapping;
+
+export type { IconSymbolName };
 
 /**
  * An icon component that uses native SF Symbols on iOS, and Material Icons on Android and web.

@@ -4,8 +4,29 @@
   },
   "home": {
     "title": "お医者さんナビ",
-    "setupComplete": "セットアップ完了（ticket 06 で本実装）",
-    "tabLabel": "ホーム"
+    "subtitle": "南信地域の病院検索",
+    "symptoms": {
+      "title": "症状から病院を探す",
+      "subtitle": "緊急度もAIが判定"
+    },
+    "search": {
+      "title": "条件で病院を探す",
+      "subtitle": "診療科・市町村"
+    },
+    "emergency": {
+      "title": "緊急時・休日当番医"
+    },
+    "transport": {
+      "title": "今日の通院サービス"
+    },
+    "placeholder": "ticket {{ticket}} で本実装"
+  },
+  "tabs": {
+    "home": "ホーム",
+    "search": "探す",
+    "emergency": "緊急",
+    "transport": "通院",
+    "settings": "設定"
   },
   "onboarding": {
     "welcome": {
