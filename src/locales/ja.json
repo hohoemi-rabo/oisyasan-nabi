@@ -7,7 +7,38 @@
     "setupComplete": "セットアップ完了（ticket 06 で本実装）",
     "tabLabel": "ホーム"
   },
-  "onboarding": {},
+  "onboarding": {
+    "welcome": {
+      "title": "お医者さんナビへようこそ",
+      "description": "南信地域（飯田市・下伊那郡）の医療機関を、症状や条件から探せるアプリです。\n最初に少しだけ教えてください（あとで変更できます）。",
+      "startButton": "はじめる"
+    },
+    "age": {
+      "title": "年齢層を選んでください",
+      "description": "AI 判定の参考にします",
+      "under39": "39歳以下",
+      "40to64": "40〜64歳",
+      "65to74": "65〜74歳",
+      "over75": "75歳以上"
+    },
+    "area": {
+      "title": "お住まいの市町村を選んでください",
+      "description": "近くの病院や交通手段を優先表示します",
+      "outsideArea": "区域外"
+    },
+    "mobility": {
+      "title": "外出時の移動補助",
+      "description": "バリアフリー対応の病院を優先表示します",
+      "none": "なし",
+      "cane": "杖",
+      "wheelchair": "車椅子"
+    },
+    "common": {
+      "skip": "あとで設定",
+      "back": "戻る",
+      "complete": "完了"
+    }
+  },
   "search": {},
   "hospital": {},
   "symptoms": {},

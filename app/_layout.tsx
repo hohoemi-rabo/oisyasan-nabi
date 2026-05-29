@@ -10,6 +10,7 @@ import 'react-native-reanimated';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useProfileStore } from '@/src/stores/profile-store';
 
 SplashScreen.preventAutoHideAsync().catch(() => {
   // already hidden
@@ -21,18 +22,22 @@ export const unstable_settings = {
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const hasHydrated = useProfileStore((s) => s.hasHydrated);
 
   useEffect(() => {
-    SplashScreen.hideAsync().catch(() => {
-      // already hidden
-    });
-  }, []);
+    if (hasHydrated) {
+      SplashScreen.hideAsync().catch(() => {
+        // already hidden
+      });
+    }
+  }, [hasHydrated]);
 
   return (
     <SafeAreaProvider>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="onboarding" options={{ headerShown: false }} />
         </Stack>
         <StatusBar style="auto" />
       </ThemeProvider>
