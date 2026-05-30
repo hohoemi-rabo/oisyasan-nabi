@@ -5,8 +5,9 @@ import type {
   FollowUpResponse,
 } from '@/src/types/ai';
 
-// AI 判定は 5 秒（REQUIREMENTS §3.3.2）、追加質問生成は 10 秒（§5.2）。
-const RECOMMEND_TIMEOUT_MS = 5000;
+// AI 判定は概ね 5 秒（§3.3.2）。thinking 無効化で応答は ~2.5s。クライアントは
+// Workers 側 AI_TIMEOUT_MS=5s の判定（成功 or fallback）を取りこぼさないよう少し長め。
+const RECOMMEND_TIMEOUT_MS = 8000;
 const FOLLOW_UP_TIMEOUT_MS = 10000;
 
 function workerUrl(): string {
