@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import { useEffect, useMemo } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
@@ -44,9 +45,14 @@ export function TransportSection({ hospitalCity, shuttleBusInfo }: Props) {
       ) : null}
 
       {matched.map((service) => (
-        <View
+        <Pressable
           key={service.id}
-          className="bg-white border border-neutral-200 rounded-xl p-3 mb-2">
+          accessibilityRole="button"
+          accessibilityLabel={service.name}
+          onPress={() =>
+            router.push({ pathname: '/transport/[id]', params: { id: service.id } })
+          }
+          className="bg-white border border-neutral-200 rounded-xl p-3 mb-2 active:bg-neutral-50">
           <View className="flex-row items-center flex-wrap mb-1">
             <Text className="text-base font-semibold text-neutral-900 mr-2">
               {service.name}
@@ -90,7 +96,7 @@ export function TransportSection({ hospitalCity, shuttleBusInfo }: Props) {
               </Pressable>
             ) : null}
           </View>
-        </View>
+        </Pressable>
       ))}
     </View>
   );

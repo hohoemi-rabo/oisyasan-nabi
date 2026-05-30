@@ -366,6 +366,48 @@
     },
     "note": "備考"
   },
-  "transport": {},
+  "transport": {
+    "title": "通院サービスを探す",
+    "filters": {
+      "serviceType": "サービス種別",
+      "municipality": "市町村",
+      "barrierFree": "バリアフリー対応",
+      "clear": "条件をクリア"
+    },
+    "results": {
+      "count": "{{count}}件のサービス",
+      "empty": "条件に合う通院サービスが見つかりませんでした。",
+      "loading": "読み込み中…",
+      "error": "通院サービスの取得に失敗しました。",
+      "retry": "再試行"
+    },
+    "card": {
+      "area": "対応エリア",
+      "callBook": "電話で予約",
+      "webBook": "Web で予約"
+    },
+    "detail": {
+      "operator": "運営者",
+      "area": "対応エリア",
+      "booking": "予約方法",
+      "bookingMethod": {
+        "phone": "電話予約",
+        "web": "Web 予約",
+        "app": "アプリ予約",
+        "none": "予約不要"
+      },
+      "deadline": "予約期限",
+      "deadlineValue": "利用の{{hours}}時間前までに予約",
+      "fare": "料金",
+      "eligibility": "対象者",
+      "wheelchair": "バリアフリー",
+      "wheelchairYes": "車いす対応",
+      "wheelchairNo": "車いす対応なし",
+      "notes": "備考",
+      "callBook": "電話で予約",
+      "webBook": "Web で予約",
+      "notFound": "サービス情報が見つかりませんでした。"
+    }
+  },
   "settings": {}
 }
