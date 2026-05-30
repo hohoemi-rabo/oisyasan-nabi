@@ -51,4 +51,4 @@ Gemini API キーをクライアントに置かないため、Cloudflare Workers
 - 既存 Web の Next.js API ルートをそのまま流用するのではなく、**Workers ランタイムで動く形にリライト**する（Edge Runtime の制約に注意）。
 - Gemini レスポンスのスキーマ検証は `aiRecommendCoreSchema.safeParse` で実装。未準拠ならフォールバックに自動切替。
 - 個人情報を含むフィールド（自由記述 `memo` 等）は Workers のログに残さない設定（`observability.enabled = false` + エラー時もクラス名のみログ）。
-- Gemini モデル名 `gemini-3.1-flash-lite-preview` は既存 Web で採用済み。API 未対応のエラーが出る場合は `workers/src/gemini.ts` の `GEMINI_MODEL` を最新版に差し替え。
+- Gemini モデルは `workers/src/gemini.ts` の `GEMINI_MODEL`。現在 **`gemini-3.5-flash`**（本番デプロイ済み）。API 未対応のエラーが出る場合はこの 1 行を別モデルに差し替え。**flash 系は thinking が既定 ON で JSON が途中で切れ fallback になるため `thinkingConfig: { thinkingBudget: 0 }` を必ず維持**（詳細は `.claude/rules/workers.md`）。
