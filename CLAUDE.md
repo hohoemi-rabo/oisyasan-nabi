@@ -8,9 +8,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Phase 1 MVP「お医者さんナビ」（南信地域向け医療機関ナビ Android アプリ）の実装フェーズ。
 
-- **完了チケット**: 01（基盤）・02（i18n）・03（Workers AI、コードのみ）・04（Web 管理画面、別リポで完了済み）・05（オンボーディング）・06（ホーム + 5 タブ）・07（条件検索）・08（病院詳細）・09（症状アンケート）・10（AI 結果、追加質問チャットのみ見送り）・11（緊急時ガイド + 月次カレンダー）・12（地域交通サービス）・13（プロフィール + 設定タブ）・14（かかりつけ医一覧）・15（ローカルキャッシュ + オフライン）・16（匿名検索ログ）。`search_logs` への匿名 INSERT は `src/lib/search-log.ts` の `logSearch(conditions, area)` / `logSymptom(draft, profile)` 経由で、symptom ログは memo・プロフィールを除外。
+- **完了チケット**: 01（基盤）・02（i18n）・03（Workers AI、本番デプロイ済み）・04（Web 管理画面、別リポで完了済み）・05（オンボーディング）・06（ホーム + 5 タブ）・07（条件検索）・08（病院詳細）・09（症状アンケート）・10（AI 結果、追加質問チャットのみ見送り）・11（緊急時ガイド + 月次カレンダー）・12（地域交通サービス）・13（プロフィール + 設定タブ）・14（かかりつけ医一覧）・15（ローカルキャッシュ + オフライン）・16（匿名検索ログ）。`search_logs` への匿名 INSERT は `src/lib/search-log.ts` の `logSearch(conditions, area)` / `logSymptom(draft, profile)` 経由で、symptom ログは memo・プロフィールを除外。
 - **残り**: 17（EAS / Play Store）。10 の追加質問チャット（`/api/follow-up` UI）と 12 のバス時刻表（`bus_*` データ投入後）、利用規約/プライバシー URL（`settings/about.tsx`、17 で確定）は後続で対応。依存関係は `docs/00-INDEX.md`。
-- 03 の Workers は **コードのみ完成**、本番デプロイ（Rate Limiting namespace 確定 → `wrangler secret put GEMINI_API_KEY` → `wrangler deploy` → URL を `.env.local` に登録）は手動で残っている。詳細は `workers/README.md`。
+- 03 の Workers は **本番デプロイ済み**（Cloudflare、URL `https://oisyasan-navi-ai.rabo-hohoemi.workers.dev` を `.env.local` の `EXPO_PUBLIC_AI_WORKER_URL` に登録済み）。`GEMINI_API_KEY` は Workers Secret に設定済み、Rate Limiter の `namespace_id="1001"` のままで稼働。`source:'ai'` で実応答を確認済み（モデル `gemini-3.1-flash-lite-preview` は有効）。再デプロイは `cd workers && npm run deploy`。詳細は `workers/README.md`。
 - ticket 07 以降のプレースホルダ画面（`/symptoms/questionnaire`・`(tabs)/{emergency,transport,settings}`・`/hospital/[id]`→既に本実装済み）は `src/components/common/screen-placeholder.tsx` でラベルだけ表示。`router.push` の Typed Routes 解決のため後続チケット着手前から存在させる方針。
 - `npm run reset-project` スクリプトは使わない（手動で残置整理済み）。
 
