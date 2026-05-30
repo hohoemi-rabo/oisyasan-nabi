@@ -1,17 +1,21 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
+import { isFresh } from '@/src/lib/cache';
 import { supabase } from '@/src/lib/supabase';
 import type { Hospital } from '@/src/types/hospital';
 
-// ticket 15 will wrap this with `persist` + a 24h TTL check; keep the API minimal so
-// adding persistence is purely additive.
+// 病院マスタ + 診療時間（JOIN）を AsyncStorage に 24h キャッシュ（ticket 15）。
 
 type HospitalsState = {
   data: Hospital[];
   loadedAt: number | null;
   isLoading: boolean;
   error: string | null;
-  load: () => Promise<void>;
+  hasHydrated: boolean;
+  load: (force?: boolean) => Promise<void>;
+  setHasHydrated: (b: boolean) => void;
 };
 
 const HOSPITALS_SELECT = `
@@ -29,27 +33,46 @@ const HOSPITALS_SELECT = `
   )
 `;
 
-export const useHospitalsStore = create<HospitalsState>()((set) => ({
-  data: [],
-  loadedAt: null,
-  isLoading: false,
-  error: null,
-  load: async () => {
-    set({ isLoading: true, error: null });
-    try {
-      const { data, error } = await supabase
-        .from('hospitals')
-        .select(HOSPITALS_SELECT)
-        .order('name');
-      if (error) throw error;
-      set({
-        data: (data ?? []) as unknown as Hospital[],
-        loadedAt: Date.now(),
-        isLoading: false,
-      });
-    } catch (e) {
-      const message = e instanceof Error ? e.message : '不明なエラー';
-      set({ error: message, isLoading: false });
-    }
-  },
-}));
+export const useHospitalsStore = create<HospitalsState>()(
+  persist(
+    (set, get) => ({
+      data: [],
+      loadedAt: null,
+      isLoading: false,
+      error: null,
+      hasHydrated: false,
+      load: async (force = false) => {
+        const { isLoading, loadedAt, hasHydrated } = get();
+        // キャッシュ復元前はネットワークしない（オフライン優先）。鮮度内なら再取得しない。
+        if (!hasHydrated || isLoading) return;
+        if (!force && isFresh(loadedAt)) return;
+        set({ isLoading: true, error: null });
+        try {
+          const { data, error } = await supabase
+            .from('hospitals')
+            .select(HOSPITALS_SELECT)
+            .order('name');
+          if (error) throw error;
+          set({
+            data: (data ?? []) as unknown as Hospital[],
+            loadedAt: Date.now(),
+            isLoading: false,
+          });
+        } catch (e) {
+          // 失敗時はキャッシュを使い続け、error だけ立てる（サイレント）。
+          const message = e instanceof Error ? e.message : '不明なエラー';
+          set({ error: message, isLoading: false });
+        }
+      },
+      setHasHydrated: (hasHydrated) => set({ hasHydrated }),
+    }),
+    {
+      name: 'oishasan-navi:hospitals-cache',
+      storage: createJSONStorage(() => AsyncStorage),
+      partialize: (state) => ({ data: state.data, loadedAt: state.loadedAt }),
+      onRehydrateStorage: () => (state) => {
+        state?.setHasHydrated(true);
+      },
+    },
+  ),
+);

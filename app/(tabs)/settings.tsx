@@ -3,10 +3,17 @@ import { Alert, ScrollView, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { SettingsRow } from '@/src/components/settings/settings-row';
+import { refreshAllCaches } from '@/src/hooks/use-cache-sync';
 import { t } from '@/src/i18n';
 import { resetAppData } from '@/src/lib/reset-app-data';
 
 export default function SettingsScreen() {
+  // 手動でローカルキャッシュを更新。
+  const handleRefresh = async () => {
+    const ok = await refreshAllCaches();
+    Alert.alert(ok ? t('settings.refresh.done') : t('settings.refresh.error'));
+  };
+
   // 二段階確認 → データ初期化 → オンボーディングへ。
   const handleReset = () => {
     Alert.alert(t('settings.reset.confirmTitle'), t('settings.reset.confirmMessage'), [
@@ -51,6 +58,7 @@ export default function SettingsScreen() {
           title={t('settings.menu.about')}
           onPress={() => router.push('/settings/about')}
         />
+        <SettingsRow icon="🔄" title={t('settings.menu.refresh')} onPress={handleRefresh} />
 
         {/* 言語切替は Phase 1 では日本語固定のため非表示。TODO(ticket-02 / Phase 2): 言語選択行を追加。 */}
 

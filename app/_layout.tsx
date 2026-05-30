@@ -11,6 +11,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { OfflineBadge } from '@/src/components/common/offline-badge';
+import { useCacheSync } from '@/src/hooks/use-cache-sync';
 import { useProfileStore } from '@/src/stores/profile-store';
 
 SplashScreen.preventAutoHideAsync().catch(() => {
@@ -24,6 +25,8 @@ export const unstable_settings = {
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const hasHydrated = useProfileStore((s) => s.hasHydrated);
+
+  useCacheSync();
 
   useEffect(() => {
     if (hasHydrated) {
