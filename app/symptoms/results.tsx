@@ -151,12 +151,12 @@ export default function SymptomsResultsScreen() {
         </Text>
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel={t('symptoms.result.backHome')}
+          accessibilityLabel={t('common.backHome')}
           onPress={() => router.replace('/(tabs)')}
           className="min-h-[44px] px-3 flex-row items-center justify-center rounded-lg active:bg-neutral-100">
           <Text className="text-base mr-1">🏠</Text>
           <Text className="text-base font-semibold text-blue-600">
-            {t('symptoms.result.home')}
+            {t('common.home')}
           </Text>
         </Pressable>
       </View>
@@ -241,11 +241,11 @@ export default function SymptomsResultsScreen() {
 
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel={t('symptoms.result.backHome')}
+            accessibilityLabel={t('common.backHome')}
             onPress={() => router.replace('/(tabs)')}
             className="min-h-[52px] mt-6 rounded-xl border border-neutral-300 bg-white items-center justify-center active:bg-neutral-100">
             <Text className="text-base font-semibold text-neutral-800">
-              🏠 {t('symptoms.result.backHome')}
+              🏠 {t('common.backHome')}
             </Text>
           </Pressable>
         </ScrollView>

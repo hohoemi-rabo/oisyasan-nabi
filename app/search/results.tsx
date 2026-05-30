@@ -48,6 +48,16 @@ export default function SearchResultsScreen() {
           title: isLoading || error
             ? t('search.title')
             : t('search.results.count', { count: results.length }),
+          headerRight: () => (
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel={t('common.backHome')}
+              onPress={() => router.replace('/(tabs)')}
+              className="min-h-[44px] px-2 flex-row items-center justify-center active:opacity-70">
+              <Text className="text-base mr-1">🏠</Text>
+              <Text className="text-base font-semibold text-blue-600">{t('common.home')}</Text>
+            </Pressable>
+          ),
         }}
       />
       {error ? (
