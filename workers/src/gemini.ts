@@ -1,6 +1,6 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-export const GEMINI_MODEL = 'gemini-3.1-flash-lite-preview';
+export const GEMINI_MODEL = 'gemini-3.5-flash';
 export const AI_TIMEOUT_MS = 5000;
 export const FOLLOW_UP_TIMEOUT_MS = 10000;
 
