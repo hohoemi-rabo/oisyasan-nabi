@@ -1,6 +1,6 @@
 # 17. EAS Build / Update + Play Store 提出
 
-**ステータス**: pending
+**ステータス**: in_progress（ビルド不要の準備＝eas.json・android.package・規約/ポリシー草案 まで完了。実ビルド/提出は残り）
 **関連要件**: REQUIREMENTS.md §9 / §10 / §16
 **依存**: 全機能チケット（最終工程）
 **ブロックする**: なし
@@ -20,26 +20,28 @@
 
 ## Todo
 
-- [ ] `eas-cli` の準備（`npx eas-cli login`、`npx eas init` でプロジェクト連携）
-- [ ] `eas.json` の作成（base + development / preview / production）
-- [ ] EAS Dashboard で環境変数を development / preview / production に登録
-- [ ] `app.json` の `name` / `slug` / `version` / `android.package`（`com.hohoemilab.oishasan_navi` 仮）を確定
-- [ ] アイコン（聴診器 + 矢印モチーフ）を `assets/images/icon.png` / `adaptive-icon.png` に差し替え
-- [ ] スプラッシュ画像を差し替え
+- [ ] `eas-cli` の準備（`npx eas-cli login`、`npx eas init` でプロジェクト連携）※未実施
+- [×] `eas.json` の作成（base + development / preview / production、`appVersionSource: local`、production は `app-bundle` + `autoIncrement`、各 `channel` 設定）
+- [ ] EAS Dashboard で環境変数を development / preview / production に登録 ※**クラウドビルド前に必須**（`.env.local` は gitignore のためクラウドには渡らない。`EXPO_PUBLIC_SUPABASE_URL`/`_ANON_KEY`/`_AI_WORKER_URL` を `eas env:create` か Dashboard で登録。ローカルビルドは `.env.local` を読むため不要）
+- [×] `app.json` の `android.package` を **`com.rabohohoemi.oisyasannavi`** に確定（+ `versionCode: 1`）。`name`/`slug`/`version(1.0.0)` は既存
+- [ ] アイコン（聴診器 + 矢印モチーフ）を `assets/images/icon.png` / `adaptive-icon.png` に差し替え ※現状は Expo テンプレ既定
+- [ ] スプラッシュ画像を差し替え ※同上
 - [ ] Android 7.0 (API 24) 以上のサポートを `app.json` で明示（必要なら）
-- [ ] `eas build --profile preview --platform android` で実機検証
-- [ ] `eas build --profile production --platform android` で AAB 生成
+- [ ] `eas build --profile preview --platform android` で実機検証 ※**クラウド枠 or `--local`**
+- [ ] `eas build --profile production --platform android` で AAB 生成 ※同上
 - [ ] Play Store Console でアプリ作成（仮称「お医者さんナビ」）
-- [ ] プライバシーポリシー本文の作成（収集情報・匿名ログ目的・Gemini 経由の第三者提供・データ削除方法）
-- [ ] プライバシーポリシーをホスティング（既存 Web の `/privacy` 等）
+- [×] プライバシーポリシー本文の作成 → `docs/privacy-policy.md`（収集情報・匿名ログ目的・**Gemini 経由の第三者提供**・データ削除方法・端末権限を記載。事業者名/連絡先/日付は要確定）
+- [×] 利用規約本文の作成 → `docs/terms-of-use.md`（免責中心の草案）
+- [ ] プライバシーポリシー/利用規約をホスティング（GitHub Pages・既存 Web の `/privacy` 等）→ URL を `app/settings/about.tsx` の `PRIVACY_URL`/`TERMS_URL` に投入
 - [ ] スクリーンショット 5 枚（ホーム / 症状結果 / 緊急時 / 病院詳細 / 通院）
 - [ ] アプリ概要文・短い説明文・カテゴリ「医療」設定
 - [ ] 内部テストトラックにアップロード
-- [ ] EAS Update のチャネル設定（`production` チャネル）
+- [ ] EAS Update のチャネル設定（`production` チャネル）※eas.json に `channel` は記載済み、`eas update:configure` + `runtimeVersion` はビルド時
 
 ## 留意事項
 
-- パッケージ ID は一度公開すると変更困難。`com.hohoemilab.oishasan_navi` で確定するか先に判断する。
-- プライバシーポリシーで Gemini 経由のデータ送信は必ず明記（Play Store 審査で必須）。
+- パッケージ ID は **`com.rabohohoemi.oisyasannavi` で確定**（app.json 反映済み）。一度公開すると変更困難。
+- プライバシーポリシーで Gemini 経由のデータ送信は必ず明記（Play Store 審査で必須）→ `docs/privacy-policy.md` の §3.1 に記載済み。
 - Play Console の年 25 ドル支払いを忘れない。
-- EAS Build の無料枠（月 30 ビルド）で Phase 1 は足りる見込み。
+- **EAS クラウドビルドの無料枠を使い切っている場合**は、翌月リセットを待つか、`eas build --platform android --local`（クレジット消費なし）か `npx expo prebuild && cd android && ./gradlew :app:bundleRelease` でローカルビルド可（WSL2 では JDK 17 + Android SDK の用意が必要）。AAB は公開時に 1 個作ればよく、毎回ビルド不要。
+- AI 判定が動く前提として Workers は本番デプロイ済み（`EXPO_PUBLIC_AI_WORKER_URL`）。クラウドビルドではこの 3 つの公開環境変数を EAS 側にも登録すること。
