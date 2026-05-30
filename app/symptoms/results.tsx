@@ -15,7 +15,7 @@ import { getDepartments } from '@/src/lib/department-mapping';
 import { fallbackUrgency } from '@/src/lib/fallback-urgency';
 import { scoreHospitals } from '@/src/lib/hospital-scoring';
 import { saveResultImage } from '@/src/lib/save-result-image';
-import { logSearch } from '@/src/lib/search-log';
+import { logSymptom } from '@/src/lib/search-log';
 import { useFavoritesStore } from '@/src/stores/favorites-store';
 import { useHospitalsStore } from '@/src/stores/hospitals-store';
 import { useProfileStore } from '@/src/stores/profile-store';
@@ -108,7 +108,8 @@ export default function SymptomsResultsScreen() {
     const profileNow = useProfileStore.getState();
     const request = buildRecommendRequest(draftNow, profileNow);
 
-    logSearch('symptom', request as unknown as Record<string, unknown>, profileNow.residentialArea ?? null);
+    // ログには memo / プロフィールを含めない（logSymptom 内でサニタイズ）。
+    logSymptom(draftNow, profileNow);
 
     fetchAiRecommend(request)
       .then((res) => {

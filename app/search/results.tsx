@@ -34,7 +34,7 @@ export default function SearchResultsScreen() {
   }, [load, loadedAt, isLoading]);
 
   useEffect(() => {
-    logSearch('search', conditions, area ?? null);
+    logSearch(conditions, area);
     // Intentionally fire once per mount.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
