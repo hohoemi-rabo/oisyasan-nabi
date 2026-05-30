@@ -146,7 +146,19 @@ export default function SymptomsResultsScreen() {
           className="min-h-[44px] min-w-[44px] items-start justify-center">
           <Text className="text-2xl text-neutral-700">‹</Text>
         </Pressable>
-        <Text className="text-lg font-bold text-neutral-900">{t('symptoms.result.title')}</Text>
+        <Text className="flex-1 text-lg font-bold text-neutral-900">
+          {t('symptoms.result.title')}
+        </Text>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={t('symptoms.result.backHome')}
+          onPress={() => router.replace('/(tabs)')}
+          className="min-h-[44px] px-3 flex-row items-center justify-center rounded-lg active:bg-neutral-100">
+          <Text className="text-base mr-1">🏠</Text>
+          <Text className="text-base font-semibold text-blue-600">
+            {t('symptoms.result.home')}
+          </Text>
+        </Pressable>
       </View>
 
       {loading || !result ? (
@@ -226,6 +238,16 @@ export default function SymptomsResultsScreen() {
               />
             ))
           )}
+
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={t('symptoms.result.backHome')}
+            onPress={() => router.replace('/(tabs)')}
+            className="min-h-[52px] mt-6 rounded-xl border border-neutral-300 bg-white items-center justify-center active:bg-neutral-100">
+            <Text className="text-base font-semibold text-neutral-800">
+              🏠 {t('symptoms.result.backHome')}
+            </Text>
+          </Pressable>
         </ScrollView>
       )}
     </SafeAreaView>

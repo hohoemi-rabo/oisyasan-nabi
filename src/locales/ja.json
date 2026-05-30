@@ -275,6 +275,8 @@
     },
     "result": {
       "title": "AI判定結果",
+      "home": "ホーム",
+      "backHome": "ホームに戻る",
       "loading": "AI が判定しています…",
       "fallbackNotice": "現在 AI が利用できないため、簡易判定で表示しています。",
       "urgency": {
