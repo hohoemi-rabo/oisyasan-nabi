@@ -1,6 +1,6 @@
 # 14. かかりつけ医
 
-**ステータス**: pending
+**ステータス**: done
 **関連要件**: REQUIREMENTS.md §3.9
 **依存**: 01・02・08・13
 **ブロックする**: なし
@@ -19,17 +19,18 @@
 
 ## Todo
 
-- [ ] `useFavoritesStore`（Zustand + AsyncStorage）：`favorites: Favorite[]`、`add(hospitalId)`、`remove(id)`、`reorder(fromIndex, toIndex)`、`isFavorite(hospitalId)`
-- [ ] 型定義 `Favorite = { id: string; hospitalId: string; sortOrder: number; createdAt: number }`
-- [ ] 5 件上限チェック（add 時にエラートースト）
-- [ ] `app/settings/favorites.tsx`：`react-native-draggable-flatlist` でドラッグ並び替え + スワイプ削除（`react-native-gesture-handler` の `Swipeable`）
-- [ ] 病院詳細（08）からの登録/解除ボタン挙動
-- [ ] スコアリング連携（10）：`hospitalScoring.ts` 内で `useFavoritesStore.getState()` を参照
-- [ ] 空状態の表示
-- [ ] `locales/ja.json` の `favorites.*` キー
+- [×] `useFavoritesStore`（Zustand + AsyncStorage）：`items: Favorite[]`、`add(hospitalId)→{ok,reason}`、`remove(hospitalId)`、`reorder(hospitalIds[])`、`reset`（**先行チケットで実装済み**。`reorder` は id 配列方式、`isFavorite` はインライン `.some()`）
+- [×] 型定義 `Favorite = { id; hospitalId; sortOrder; createdAt }`（実装済み）
+- [×] 5 件上限チェック（`add` の `{ok,reason:'limit'}` + 病院詳細で `Alert`、`FAVORITES_LIMIT=5`）
+- [×] `app/settings/favorites.tsx`：**上下ボタンで並び替え + 確認 Alert 付き削除ボタン**（`react-native-draggable-flatlist` は Reanimated v4.1 と非互換リスクのため不採用＝新規依存ゼロ・シニア向けに発見性が高い）
+- [×] 病院詳細（08）からの登録/解除ボタン挙動（**先行実装済み**）
+- [×] スコアリング連携（10）：`hospital-scoring.ts` が `favoriteIds` を参照、`results.tsx` が `useFavoritesStore` から Set 構築（**先行実装済み**）
+- [×] 空状態の表示（登録なし + 病院詳細から登録できるヒント）
+- [×] `locales/ja.json` の `favorites.*` キー（新規 namespace。病院詳細側は既存 `hospital.favorite.*`）
+- [×] `src/components/settings/favorite-row.tsx`（1 行 UI：名前/市町村 + ↑↓🗑）
 
 ## 留意事項
 
-- ドラッグ並び替え後は `sortOrder` を再採番して保存（再描画時の安定性のため）。
-- `react-native-draggable-flatlist` を `npx expo install` で追加。Reanimated v4 互換版を確認。
-- 5 件上限のテキストは i18n キー化。
+- 並び替え後は `reorder(hospitalIds)` が `sortOrder` を再採番して保存（store 実装済み）。
+- **`react-native-draggable-flatlist` は不採用**: 本プロジェクトは Reanimated v4.1（worklets 分離）で、同ライブラリは Reanimated 2/3 向けのため非互換リスクが高い。代わりに**上下ボタン + 削除ボタン**を採用（新規依存ゼロ、`GestureHandlerRootView` ラップ不要、シニア層に発見性が高くアクセシブル）。将来ドラッグ UX が必要なら Reanimated v4 対応の `react-native-reorderable-list` を検討。
+- 5 件上限・各操作テキストは i18n キー化済み。

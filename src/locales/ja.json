@@ -409,6 +409,24 @@
       "notFound": "サービス情報が見つかりませんでした。"
     }
   },
+  "favorites": {
+    "title": "かかりつけ医",
+    "count": "{{count}} / {{limit}} 件",
+    "moveUp": "上へ移動",
+    "moveDown": "下へ移動",
+    "delete": "削除",
+    "unknownHospital": "病院情報を読み込めませんでした",
+    "empty": {
+      "title": "登録されているかかりつけ医はありません",
+      "hint": "病院の詳細画面から「かかりつけ医に登録」できます。"
+    },
+    "deleteConfirm": {
+      "title": "かかりつけ医を解除しますか？",
+      "message": "「{{name}}」をかかりつけ医から外します。",
+      "confirm": "解除する",
+      "cancel": "キャンセル"
+    }
+  },
   "settings": {
     "title": "設定",
     "menu": {
