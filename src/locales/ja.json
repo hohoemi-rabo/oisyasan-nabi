@@ -409,5 +409,35 @@
       "notFound": "サービス情報が見つかりませんでした。"
     }
   },
-  "settings": {}
+  "settings": {
+    "title": "設定",
+    "menu": {
+      "profile": "プロフィール編集",
+      "favorites": "かかりつけ医",
+      "about": "アプリについて",
+      "reset": "データを初期化"
+    },
+    "profile": {
+      "title": "プロフィール編集",
+      "age": "年齢層",
+      "area": "お住まいの市町村",
+      "mobility": "外出時の移動補助"
+    },
+    "about": {
+      "title": "アプリについて",
+      "version": "バージョン",
+      "terms": "利用規約",
+      "privacy": "プライバシーポリシー",
+      "comingSoon": "現在準備中です。公開までお待ちください。"
+    },
+    "reset": {
+      "confirmTitle": "データを初期化しますか？",
+      "confirmMessage": "プロフィール・かかりつけ医・検索条件・アンケートの下書きがすべて削除されます。",
+      "confirm": "初期化する",
+      "finalTitle": "本当に削除しますか？",
+      "finalMessage": "この操作は取り消せません。すべてのデータを削除して最初からやり直します。",
+      "finalConfirm": "すべて削除",
+      "cancel": "キャンセル"
+    }
+  }
 }

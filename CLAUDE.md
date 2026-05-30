@@ -8,8 +8,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Phase 1 MVP「お医者さんナビ」（南信地域向け医療機関ナビ Android アプリ）の実装フェーズ。
 
-- **完了チケット**: 01（基盤）・02（i18n）・03（Workers AI、コードのみ）・04（Web 管理画面、別リポで完了済み）・05（オンボーディング）・06（ホーム + 5 タブ）・07（条件検索）・08（病院詳細）・09（症状アンケート）・10（AI 結果、追加質問チャットのみ見送り）・11（緊急時ガイド + 月次カレンダー）・12（地域交通サービス）。検索 → 詳細・症状 → AI 判定・緊急タブに加え、通院タブ（自治体/種別/バリアフリーのフィルタ一覧 + `/transport/[id]` 詳細、病院詳細からの導線）が開通した状態。
-- **残り**: 13（設定）・14（かかりつけ一覧）・15（ローカルキャッシュ）・16（検索ログ拡張）・17（EAS / Play Store）。10 の追加質問チャット（`/api/follow-up` UI）と 12 のバス時刻表（`bus_*` データ投入後）は後続で対応。依存関係は `docs/00-INDEX.md`。
+- **完了チケット**: 01（基盤）・02（i18n）・03（Workers AI、コードのみ）・04（Web 管理画面、別リポで完了済み）・05（オンボーディング）・06（ホーム + 5 タブ）・07（条件検索）・08（病院詳細）・09（症状アンケート）・10（AI 結果、追加質問チャットのみ見送り）・11（緊急時ガイド + 月次カレンダー）・12（地域交通サービス）・13（プロフィール + 設定タブ）。5 タブすべて本実装。設定タブからプロフィール編集・アプリ情報・データ初期化・かかりつけ医（導線のみ）へ。
+- **残り**: 14（かかりつけ一覧）・15（ローカルキャッシュ）・16（検索ログ拡張）・17（EAS / Play Store）。10 の追加質問チャット（`/api/follow-up` UI）と 12 のバス時刻表（`bus_*` データ投入後）、利用規約/プライバシー URL（`settings/about.tsx`、17 で確定）は後続で対応。依存関係は `docs/00-INDEX.md`。
 - 03 の Workers は **コードのみ完成**、本番デプロイ（Rate Limiting namespace 確定 → `wrangler secret put GEMINI_API_KEY` → `wrangler deploy` → URL を `.env.local` に登録）は手動で残っている。詳細は `workers/README.md`。
 - ticket 07 以降のプレースホルダ画面（`/symptoms/questionnaire`・`(tabs)/{emergency,transport,settings}`・`/hospital/[id]`→既に本実装済み）は `src/components/common/screen-placeholder.tsx` でラベルだけ表示。`router.push` の Typed Routes 解決のため後続チケット着手前から存在させる方針。
 - `npm run reset-project` スクリプトは使わない（手動で残置整理済み）。
