@@ -1,7 +1,9 @@
+import { Ionicons } from '@expo/vector-icons';
 import type { ReactNode } from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { colors } from '@/src/constants/colors';
 import { t } from '@/src/i18n';
 
 import { QuestionnaireProgress } from './questionnaire-progress';
@@ -14,11 +16,12 @@ type Props = {
   canProceed: boolean;
   onBack: () => void;
   onNext: () => void;
+  onAbort: () => void;
   nextLabel?: string;
   children: ReactNode;
 };
 
-// 1 ステップ共通レイアウト。進捗バー + タイトル/説明 + content + 下部ナビ。
+// 1 ステップ共通レイアウト。中止ボタン + 進捗バー + タイトル/説明 + content + 下部ナビ。
 export function QuestionScaffold({
   stepIndex,
   total,
@@ -27,11 +30,26 @@ export function QuestionScaffold({
   canProceed,
   onBack,
   onNext,
+  onAbort,
   nextLabel,
   children,
 }: Props) {
   return (
     <SafeAreaView edges={['top', 'bottom']} className="flex-1 bg-bg">
+      {/* どのステップでもいつでも中止できる */}
+      <View className="flex-row justify-end px-4 pt-1">
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={t('symptoms.questionnaire.abort.action')}
+          onPress={onAbort}
+          className="min-h-[44px] px-2 flex-row items-center active:opacity-70">
+          <Ionicons name="close" size={18} color={colors.ink[500]} />
+          <Text className="ml-1 text-sm font-semibold text-ink-500">
+            {t('symptoms.questionnaire.abort.action')}
+          </Text>
+        </Pressable>
+      </View>
+
       <QuestionnaireProgress current={stepIndex + 1} total={total} />
 
       <ScrollView className="flex-1 px-6" contentContainerClassName="pt-3 pb-6">
@@ -61,9 +79,9 @@ export function QuestionScaffold({
           disabled={!canProceed}
           onPress={onNext}
           className={`min-h-[52px] flex-1 items-center justify-center rounded-xl ${
-            canProceed ? 'bg-blue-600 active:bg-blue-700' : 'bg-neutral-300'
+            canProceed ? 'bg-teal-600 active:opacity-90' : 'bg-neutral-300'
           }`}>
-          <Text className="text-base font-semibold text-white">
+          <Text className="text-base font-bold text-white">
             {nextLabel ?? t('symptoms.questionnaire.next')}
           </Text>
         </Pressable>

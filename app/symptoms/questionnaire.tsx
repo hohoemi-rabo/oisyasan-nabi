@@ -83,23 +83,29 @@ export default function SymptomsQuestionnaireScreen() {
     }
   })();
 
+  // どのステップでも中止できる（確認ダイアログ → 下書き破棄してホームへ）。
+  const handleAbort = () => {
+    Alert.alert(
+      t('symptoms.questionnaire.abort.title'),
+      t('symptoms.questionnaire.abort.message'),
+      [
+        { text: t('symptoms.questionnaire.abort.cancel'), style: 'cancel' },
+        {
+          text: t('symptoms.questionnaire.abort.confirm'),
+          style: 'destructive',
+          onPress: () => {
+            clearDraft();
+            router.back();
+          },
+        },
+      ],
+    );
+  };
+
   const handleBack = () => {
     if (stepIndex === 0) {
-      Alert.alert(
-        t('symptoms.questionnaire.abort.title'),
-        t('symptoms.questionnaire.abort.message'),
-        [
-          { text: t('symptoms.questionnaire.abort.cancel'), style: 'cancel' },
-          {
-            text: t('symptoms.questionnaire.abort.confirm'),
-            style: 'destructive',
-            onPress: () => {
-              clearDraft();
-              router.back();
-            },
-          },
-        ],
-      );
+      // 先頭で「戻る」はそのままホームへ（明示的な破棄は「中止」ボタンで）。
+      router.back();
       return;
     }
     goToStep(stepIndex - 1);
@@ -217,6 +223,7 @@ export default function SymptomsQuestionnaireScreen() {
       canProceed={canProceed}
       onBack={handleBack}
       onNext={handleNext}
+      onAbort={handleAbort}
       nextLabel={nextLabel}>
       {renderContent()}
     </QuestionScaffold>

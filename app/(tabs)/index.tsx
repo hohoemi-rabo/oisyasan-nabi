@@ -7,6 +7,7 @@ import { HeroButton } from '@/src/components/common/hero-button';
 import { colors } from '@/src/constants/colors';
 import { shadows } from '@/src/constants/shadows';
 import { t } from '@/src/i18n';
+import { useQuestionnaireStore } from '@/src/stores/questionnaire-store';
 
 export default function HomeScreen() {
   return (
@@ -22,7 +23,11 @@ export default function HomeScreen() {
           icon="medkit"
           title={t('home.symptoms.title')}
           subtitle={t('home.symptoms.subtitle')}
-          onPress={() => router.push('/symptoms/questionnaire')}
+          onPress={() => {
+            // 毎回まっさらで開始（前回の回答を引き継がない）。
+            useQuestionnaireStore.getState().clearDraft();
+            router.push('/symptoms/questionnaire');
+          }}
         />
         <HeroButton
           variant="blue"
