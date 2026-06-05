@@ -4,6 +4,7 @@
 **対象**: Expo（React Native）+ NativeWind
 **作成日**: 2026年5月26日
 **関連**: `design-mockup.html`（ビジュアル確認用）
+**実装状況**: 全画面に適用済み（Phase 1 基盤 → Phase 2 ヒーロー/カード → Phase 3 横展開+Ionicons一掃）。トークンは `tailwind.config.js`（bg/surface/line/ink）+ `src/constants/{colors,shadows,dept-colors}.ts`。フォントは OS 標準（Noto Sans JP は撤去）。
 
 ---
 
