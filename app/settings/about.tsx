@@ -8,10 +8,9 @@ import { SettingsRow } from '@/src/components/settings/settings-row';
 import { shadows } from '@/src/constants/shadows';
 import { t } from '@/src/i18n';
 
-// TODO(ticket-17): 利用規約・プライバシーポリシーの公開 URL を確定して設定する。
-// 空のうちは「準備中」を表示する。
-const TERMS_URL = '';
-const PRIVACY_URL = '';
+// 法的文書は GitHub Pages（main /docs）で公開。ソースは docs/{terms-of-use,privacy-policy}.html。
+const TERMS_URL = 'https://hohoemi-rabo.github.io/oisyasan-nabi/terms-of-use.html';
+const PRIVACY_URL = 'https://hohoemi-rabo.github.io/oisyasan-nabi/privacy-policy.html';
 
 async function openOrComingSoon(url: string) {
   if (!url) {
