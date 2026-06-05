@@ -52,8 +52,10 @@ export default function HomeScreen() {
             <Ionicons name="bus" size={21} color={colors.green[600]} />
           </View>
           <View className="flex-1">
-            <Text className="text-[15px] font-bold text-ink-900">{t('home.transport.title')}</Text>
-            <Text className="text-[12px] font-medium text-ink-500 mt-0.5">
+            <Text className="text-[15px] font-bold text-ink-900" numberOfLines={1}>
+              {t('home.transport.title')}
+            </Text>
+            <Text className="text-[12px] font-medium text-ink-500 mt-0.5" numberOfLines={1}>
               {t('home.transport.subtitle')}
             </Text>
           </View>

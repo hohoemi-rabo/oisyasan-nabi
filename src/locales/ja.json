@@ -9,12 +9,12 @@
     "title": "お医者さんナビ",
     "subtitle": "南信地域の病院検索",
     "symptoms": {
-      "title": "症状から病院を探す",
+      "title": "症状から探す",
       "subtitle": "緊急度もAIが判定"
     },
     "search": {
-      "title": "条件で病院を探す",
-      "subtitle": "診療科・市町村"
+      "title": "条件で探す",
+      "subtitle": "診療科・市町村から"
     },
     "emergency": {
       "title": "緊急時・休日当番医",

@@ -47,12 +47,19 @@ export function HeroButton({ variant, icon, title, subtitle, onPress }: Props) {
           <Ionicons name={icon} size={27} color="#fff" />
         </View>
         <View style={{ flex: 1 }}>
-          <Text className="font-black" style={{ color: '#fff', fontSize: 20 }}>
+          {/* 1行固定 + 自動縮小: 長いタイトルや端末の文字拡大設定でも折り返さない */}
+          <Text
+            className="font-black"
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.7}
+            style={{ color: '#fff', fontSize: 20, letterSpacing: -0.3 }}>
             {title}
           </Text>
           {subtitle ? (
             <Text
               className="font-medium"
+              numberOfLines={1}
               style={{ color: 'rgba(255,255,255,0.92)', fontSize: 13, marginTop: 2 }}>
               {subtitle}
             </Text>
