@@ -137,7 +137,7 @@ export default function SymptomsResultsScreen() {
   };
 
   return (
-    <SafeAreaView edges={['top', 'bottom']} className="flex-1 bg-neutral-50">
+    <SafeAreaView edges={['top', 'bottom']} className="flex-1 bg-bg">
       <View className="flex-row items-center px-4 py-2 border-b border-neutral-100 bg-white">
         <Pressable
           accessibilityRole="button"

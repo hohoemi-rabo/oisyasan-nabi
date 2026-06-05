@@ -42,7 +42,7 @@ export default function SearchResultsScreen() {
   const results = useMemo(() => searchHospitals(data, conditions), [data, conditions]);
 
   return (
-    <SafeAreaView edges={['bottom']} className="flex-1 bg-neutral-50">
+    <SafeAreaView edges={['bottom']} className="flex-1 bg-bg">
       <Stack.Screen
         options={{
           title: isLoading || error

@@ -45,7 +45,7 @@ export default function EmergencyScreen() {
   const emergencyHospitals = hospitals.filter((h) => h.emergency_available);
 
   return (
-    <SafeAreaView edges={['top']} className="flex-1 bg-neutral-50">
+    <SafeAreaView edges={['top']} className="flex-1 bg-bg">
       <ScrollView contentContainerClassName="px-5 pt-4 pb-8">
         <EmergencyCallButton />
 

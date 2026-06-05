@@ -32,7 +32,7 @@ export default function TransportDetailScreen() {
 
   if (!service) {
     return (
-      <SafeAreaView edges={['bottom']} className="flex-1 bg-neutral-50">
+      <SafeAreaView edges={['bottom']} className="flex-1 bg-bg">
         <Stack.Screen options={{ title: t('tabs.transport') }} />
         <View className="flex-1 items-center justify-center px-6">
           {isLoading || loadedAt === null ? (
@@ -49,7 +49,7 @@ export default function TransportDetailScreen() {
   const method = bookingMethodLabel(service.booking_method);
 
   return (
-    <SafeAreaView edges={['bottom']} className="flex-1 bg-neutral-50">
+    <SafeAreaView edges={['bottom']} className="flex-1 bg-bg">
       <Stack.Screen options={{ title: service.name }} />
       <ScrollView contentContainerClassName="px-5 pt-4 pb-8">
         <View className="flex-row items-center flex-wrap mb-2">

@@ -31,7 +31,7 @@ export function QuestionScaffold({
   children,
 }: Props) {
   return (
-    <SafeAreaView edges={['top', 'bottom']} className="flex-1 bg-white">
+    <SafeAreaView edges={['top', 'bottom']} className="flex-1 bg-bg">
       <QuestionnaireProgress current={stepIndex + 1} total={total} />
 
       <ScrollView className="flex-1 px-6" contentContainerClassName="pt-3 pb-6">

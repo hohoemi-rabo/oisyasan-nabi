@@ -80,7 +80,7 @@ export default function HospitalDetailScreen() {
   };
 
   return (
-    <SafeAreaView edges={['bottom']} className="flex-1 bg-neutral-50">
+    <SafeAreaView edges={['bottom']} className="flex-1 bg-bg">
       <Stack.Screen options={{ title: hospital.name }} />
       <ScrollView contentContainerClassName="px-5 pt-4 pb-10">
         <View className="mb-4">
@@ -187,7 +187,7 @@ export default function HospitalDetailScreen() {
 
 function Centered({ children }: { children: React.ReactNode }) {
   return (
-    <SafeAreaView edges={['bottom']} className="flex-1 bg-neutral-50 items-center justify-center px-6">
+    <SafeAreaView edges={['bottom']} className="flex-1 bg-bg items-center justify-center px-6">
       {children}
     </SafeAreaView>
   );

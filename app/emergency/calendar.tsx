@@ -59,7 +59,7 @@ export default function EmergencyCalendarScreen() {
   };
 
   return (
-    <SafeAreaView edges={['bottom']} className="flex-1 bg-neutral-50">
+    <SafeAreaView edges={['bottom']} className="flex-1 bg-bg">
       <Stack.Screen options={{ title: t('emergency.calendar.title') }} />
       <View className="px-4 pt-4">
         <Calendar

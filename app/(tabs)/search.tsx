@@ -26,7 +26,7 @@ export default function SearchScreen() {
   ];
 
   return (
-    <SafeAreaView edges={['top']} className="flex-1 bg-neutral-50">
+    <SafeAreaView edges={['top']} className="flex-1 bg-bg">
       <ScrollView contentContainerClassName="px-5 pt-3 pb-32" keyboardShouldPersistTaps="handled">
         <Text className="text-2xl font-bold text-neutral-900 mb-4">{t('search.title')}</Text>
 

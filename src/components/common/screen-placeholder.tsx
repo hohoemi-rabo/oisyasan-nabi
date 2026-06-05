@@ -10,7 +10,7 @@ type Props = {
 
 export function ScreenPlaceholder({ title, ticket }: Props) {
   return (
-    <SafeAreaView className="flex-1 bg-white items-center justify-center px-6">
+    <SafeAreaView className="flex-1 bg-bg items-center justify-center px-6">
       <Text className="text-2xl font-bold text-neutral-900 mb-2">{title}</Text>
       <Text className="text-sm text-neutral-500">{t('home.placeholder', { ticket })}</Text>
     </SafeAreaView>

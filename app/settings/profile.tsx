@@ -33,7 +33,7 @@ export default function ProfileEditScreen() {
   const setMobilityAid = useProfileStore((s) => s.setMobilityAid);
 
   return (
-    <SafeAreaView edges={['bottom']} className="flex-1 bg-neutral-50">
+    <SafeAreaView edges={['bottom']} className="flex-1 bg-bg">
       <Stack.Screen options={{ title: t('settings.profile.title') }} />
       <ScrollView contentContainerClassName="px-5 pt-4 pb-8">
         <Section title={t('settings.profile.age')}>

@@ -1,6 +1,13 @@
 import '../global.css';
 import '@/src/i18n';
 
+import {
+  NotoSansJP_400Regular,
+  NotoSansJP_500Medium,
+  NotoSansJP_700Bold,
+  NotoSansJP_900Black,
+  useFonts,
+} from '@expo-google-fonts/noto-sans-jp';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -25,16 +32,22 @@ export const unstable_settings = {
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const hasHydrated = useProfileStore((s) => s.hasHydrated);
+  const [fontsLoaded] = useFonts({
+    NotoSansJP_400Regular,
+    NotoSansJP_500Medium,
+    NotoSansJP_700Bold,
+    NotoSansJP_900Black,
+  });
 
   useCacheSync();
 
   useEffect(() => {
-    if (hasHydrated) {
+    if (hasHydrated && fontsLoaded) {
       SplashScreen.hideAsync().catch(() => {
         // already hidden
       });
     }
-  }, [hasHydrated]);
+  }, [hasHydrated, fontsLoaded]);
 
   return (
     <SafeAreaProvider>

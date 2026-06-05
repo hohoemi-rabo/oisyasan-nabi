@@ -18,7 +18,7 @@ export default function OnboardingWelcomeScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView className="flex-1 bg-bg">
       <View className="flex-row justify-end px-4 pt-2">
         <Pressable
           accessibilityRole="button"

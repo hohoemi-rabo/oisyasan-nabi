@@ -9,7 +9,7 @@ import { t } from '@/src/i18n';
 
 export default function HomeScreen() {
   return (
-    <SafeAreaView edges={['top']} className="flex-1 bg-neutral-50">
+    <SafeAreaView edges={['top']} className="flex-1 bg-bg">
       <ScrollView contentContainerClassName="px-5 pt-4 pb-6">
         <View className="mb-6 pt-2">
           <Text className="text-3xl font-bold text-neutral-900">{t('home.title')}</Text>

@@ -55,7 +55,7 @@ export default function FavoritesScreen() {
   };
 
   return (
-    <SafeAreaView edges={['bottom']} className="flex-1 bg-neutral-50">
+    <SafeAreaView edges={['bottom']} className="flex-1 bg-bg">
       <Stack.Screen options={{ title: t('favorites.title') }} />
       <ScrollView contentContainerClassName="px-5 pt-4 pb-8">
         {ordered.length === 0 ? (

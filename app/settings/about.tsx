@@ -24,7 +24,7 @@ export default function AboutScreen() {
   const version = Constants.expoConfig?.version ?? '—';
 
   return (
-    <SafeAreaView edges={['bottom']} className="flex-1 bg-neutral-50">
+    <SafeAreaView edges={['bottom']} className="flex-1 bg-bg">
       <Stack.Screen options={{ title: t('settings.about.title') }} />
       <ScrollView contentContainerClassName="px-5 pt-4 pb-8">
         <View className="rounded-xl border border-neutral-200 bg-white px-4 py-4 mb-6">
