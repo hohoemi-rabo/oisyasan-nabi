@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import Constants, { ExecutionEnvironment } from 'expo-constants';
 import { router } from 'expo-router';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { ActivityIndicator, Alert, Pressable, ScrollView, Text, View } from 'react-native';
@@ -133,6 +134,12 @@ export default function SymptomsResultsScreen() {
   }, [result, hospitals, favoriteIds]);
 
   const handleSave = async () => {
+    // 画像保存は react-native-view-shot / expo-media-library（ネイティブ）を使うため
+    // Expo Go では動かない。誤作動に見えないよう案内する（dev/本番ビルドでは保存実行）。
+    if (Constants.executionEnvironment === ExecutionEnvironment.StoreClient) {
+      Alert.alert(t('symptoms.result.saveImageExpoGo'));
+      return;
+    }
     setSaving(true);
     const ok = await saveResultImage(summaryRef);
     setSaving(false);

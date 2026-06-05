@@ -289,6 +289,7 @@
       "saveImage": "画像として保存",
       "saveImageDone": "画像を保存しました。",
       "saveImageFail": "画像を保存できませんでした。",
+      "saveImageExpoGo": "画像保存はインストール版（ビルドしたアプリ）でご利用いただけます。開発中の Expo Go では対応していません。",
       "hospitals": {
         "title": "おすすめの病院",
         "emptyData": "病院データを取得できませんでした。",
