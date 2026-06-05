@@ -22,7 +22,7 @@
 
 - [ ] `eas-cli` の準備（`npx eas-cli login`、`npx eas init` でプロジェクト連携）※未実施
 - [×] `eas.json` の作成（base + development / preview / production、`appVersionSource: local`、production は `app-bundle` + `autoIncrement`、各 `channel` 設定）
-- [ ] EAS Dashboard で環境変数を development / preview / production に登録 ※**クラウドビルド前に必須**（`.env.local` は gitignore のためクラウドには渡らない。`EXPO_PUBLIC_SUPABASE_URL`/`_ANON_KEY`/`_AI_WORKER_URL` を `eas env:create` か Dashboard で登録。ローカルビルドは `.env.local` を読むため不要）
+- [×] クラウドビルド向けに公開環境変数を登録 → `eas.json` の `base.env` に `EXPO_PUBLIC_SUPABASE_URL`/`_ANON_KEY`/`_AI_WORKER_URL` を直書き（全プロファイル継承）。3 つとも公開可の値（REQUIREMENTS §9.2）なので Dashboard ではなく eas.json に埋め込んで `.env.local` 不在のクラウドでも起動できるようにした。秘匿が必要になったら `eas env:create` へ移行する。
 - [×] `app.json` の `android.package` を **`com.rabohohoemi.oisyasannavi`** に確定（+ `versionCode: 1`）。`name`/`slug`/`version(1.0.0)` は既存
 - [ ] アイコン（聴診器 + 矢印モチーフ）を `assets/images/icon.png` / `adaptive-icon.png` に差し替え ※現状は Expo テンプレ既定
 - [ ] スプラッシュ画像を差し替え ※同上
@@ -30,9 +30,12 @@
 - [ ] `eas build --profile preview --platform android` で実機検証 ※**クラウド枠 or `--local`**
 - [ ] `eas build --profile production --platform android` で AAB 生成 ※同上
 - [ ] Play Store Console でアプリ作成（仮称「お医者さんナビ」）
-- [×] プライバシーポリシー本文の作成 → `docs/privacy-policy.md`（収集情報・匿名ログ目的・**Gemini 経由の第三者提供**・データ削除方法・端末権限を記載。事業者名/連絡先/日付は要確定）
-- [×] 利用規約本文の作成 → `docs/terms-of-use.md`（免責中心の草案）
-- [ ] プライバシーポリシー/利用規約をホスティング（GitHub Pages・既存 Web の `/privacy` 等）→ URL を `app/settings/about.tsx` の `PRIVACY_URL`/`TERMS_URL` に投入
+- [×] プライバシーポリシー本文の作成 → `docs/privacy-policy.md`（収集情報・匿名ログ目的・**Gemini 経由の第三者提供**・データ削除方法・端末権限を記載）。事業者名=**ほほえみラボ**／連絡先=rabo.hohoemi@gmail.com／制定日=2026-06-05 を確定。最近の仕様変更（アンケート下書き非保存・設備フィルタ撤去）も反映済み。
+- [×] 利用規約本文の作成 → `docs/terms-of-use.md`（免責中心）。事業者名・連絡先・日付を確定。
+- [×] プライバシーポリシー/利用規約をホスティング → GitHub Pages（`main` の `/docs`、`.nojekyll` で HTML をそのまま配信。ソースは `docs/{privacy-policy,terms-of-use,index}.html`）。公開 URL を `app/settings/about.tsx` の `PRIVACY_URL`/`TERMS_URL` に投入済み。
+  - プライバシー: https://hohoemi-rabo.github.io/oisyasan-nabi/privacy-policy.html
+  - 利用規約: https://hohoemi-rabo.github.io/oisyasan-nabi/terms-of-use.html
+  - ※Play Console のプライバシーポリシー欄にも上記 URL を登録する。
 - [ ] スクリーンショット 5 枚（ホーム / 症状結果 / 緊急時 / 病院詳細 / 通院）
 - [ ] アプリ概要文・短い説明文・カテゴリ「医療」設定
 - [ ] 内部テストトラックにアップロード
