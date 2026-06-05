@@ -44,3 +44,6 @@ app-example
 # generated native folders
 /ios
 /android
+
+# design review screenshot (kept local, not tracked)
+screenshot.png
