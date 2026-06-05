@@ -1,11 +1,9 @@
-import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { FilterChip } from '@/src/components/common/filter-chip';
 import { CITIES, OUTSIDE_AREA } from '@/src/constants/cities';
-import { colors } from '@/src/constants/colors';
 import { DEPARTMENTS } from '@/src/constants/departments';
 import { t } from '@/src/i18n';
 import { useSearchConditionsStore } from '@/src/stores/search-conditions-store';
@@ -14,18 +12,10 @@ export default function SearchScreen() {
   const keyword = useSearchConditionsStore((s) => s.keyword);
   const departments = useSearchConditionsStore((s) => s.departments);
   const cities = useSearchConditionsStore((s) => s.cities);
-  const facilities = useSearchConditionsStore((s) => s.facilities);
   const setKeyword = useSearchConditionsStore((s) => s.setKeyword);
   const toggleDepartment = useSearchConditionsStore((s) => s.toggleDepartment);
   const toggleCity = useSearchConditionsStore((s) => s.toggleCity);
-  const toggleFacility = useSearchConditionsStore((s) => s.toggleFacility);
   const clear = useSearchConditionsStore((s) => s.clear);
-
-  const facilityRows: { key: keyof typeof facilities; label: string }[] = [
-    { key: 'barrierFree', label: t('search.facilities.barrierFree') },
-    { key: 'parking', label: t('search.facilities.parking') },
-    { key: 'emergency', label: t('search.facilities.emergency') },
-  ];
 
   return (
     <SafeAreaView edges={['top']} className="flex-1 bg-bg">
@@ -73,32 +63,6 @@ export default function SearchScreen() {
               onPress={() => toggleCity(OUTSIDE_AREA)}
             />
           </View>
-        </Section>
-
-        <Section title={t('search.facilities.title')}>
-          {facilityRows.map(({ key, label }) => (
-            <Pressable
-              key={key}
-              accessibilityRole="checkbox"
-              accessibilityLabel={label}
-              accessibilityState={{ checked: facilities[key] }}
-              onPress={() => toggleFacility(key)}
-              className={`min-h-[52px] px-4 py-3 mb-2 rounded-xl flex-row items-center border-[1.5px] ${
-                facilities[key] ? 'border-teal-500 bg-teal-50' : 'border-line bg-surface'
-              }`}>
-              <Text
-                className={`flex-1 text-base ${
-                  facilities[key] ? 'text-teal-700 font-semibold' : 'text-ink-900'
-                }`}>
-                {label}
-              </Text>
-              <Ionicons
-                name={facilities[key] ? 'checkbox' : 'square-outline'}
-                size={22}
-                color={facilities[key] ? colors.teal[600] : colors.ink[300]}
-              />
-            </Pressable>
-          ))}
         </Section>
 
         <Pressable

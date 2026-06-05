@@ -41,16 +41,10 @@ export type SearchConditions = {
   keyword: string;
   departments: string[];
   cities: string[];
-  facilities: {
-    barrierFree: boolean;
-    parking: boolean;
-    emergency: boolean;
-  };
 };
 
 export const EMPTY_CONDITIONS: SearchConditions = {
   keyword: '',
   departments: [],
   cities: [],
-  facilities: { barrierFree: false, parking: false, emergency: false },
 };

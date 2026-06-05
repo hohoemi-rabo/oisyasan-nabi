@@ -73,12 +73,6 @@
     },
     "departments": "診療科",
     "cities": "市町村",
-    "facilities": {
-      "title": "設備",
-      "barrierFree": "バリアフリー",
-      "parking": "駐車場",
-      "emergency": "救急対応"
-    },
     "submit": "検索する",
     "clear": "条件をクリア",
     "outsideArea": "区域外",

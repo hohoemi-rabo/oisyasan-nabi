@@ -26,7 +26,6 @@ export default function SearchResultsScreen() {
       keyword: s.keyword,
       departments: s.departments,
       cities: s.cities,
-      facilities: s.facilities,
     })),
   );
   const area = useProfileStore((s) => s.residentialArea);
