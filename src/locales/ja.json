@@ -17,10 +17,12 @@
       "subtitle": "診療科・市町村"
     },
     "emergency": {
-      "title": "緊急時・休日当番医"
+      "title": "緊急時・休日当番医",
+      "subtitle": "119番・夜間急患"
     },
     "transport": {
-      "title": "今日の通院サービス"
+      "title": "今日の通院サービス",
+      "subtitle": "送迎・デマンド・タクシー"
     },
     "placeholder": "ticket {{ticket}} で本実装"
   },
