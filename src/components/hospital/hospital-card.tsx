@@ -38,7 +38,7 @@ export function HospitalCard({ hospital, matchedDepartments = [], onPress }: Pro
       />
 
       <View className="flex-row items-start justify-between mb-2">
-        <Text className="flex-1 text-[17px] font-jp-bold text-ink-900 mr-2" numberOfLines={2}>
+        <Text className="flex-1 text-[17px] font-bold text-ink-900 mr-2" numberOfLines={2}>
           {hospital.name}
         </Text>
         <StatusPill isOpen={open} />
@@ -57,7 +57,7 @@ export function HospitalCard({ hospital, matchedDepartments = [], onPress }: Pro
 
       <View className="flex-row items-center">
         <Ionicons name="location-outline" size={15} color={colors.ink[400]} />
-        <Text className="flex-1 ml-1.5 text-[12.5px] font-jp-medium text-ink-500" numberOfLines={1}>
+        <Text className="flex-1 ml-1.5 text-[12.5px] font-medium text-ink-500" numberOfLines={1}>
           {hospital.city}
           {hospital.address ? `  ${hospital.address}` : ''}
         </Text>

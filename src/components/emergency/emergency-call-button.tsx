@@ -28,10 +28,10 @@ export function EmergencyCallButton() {
         }}>
         <Ionicons name="call" size={34} color="#fff" />
         <View>
-          <Text className="font-jp-black" style={{ color: '#fff', fontSize: 23 }}>
+          <Text className="font-black" style={{ color: '#fff', fontSize: 23 }}>
             {t('emergency.call119')}
           </Text>
-          <Text className="font-jp-medium" style={{ color: 'rgba(255,255,255,0.92)', fontSize: 12 }}>
+          <Text className="font-medium" style={{ color: 'rgba(255,255,255,0.92)', fontSize: 12 }}>
             {t('emergency.call119Sub')}
           </Text>
         </View>

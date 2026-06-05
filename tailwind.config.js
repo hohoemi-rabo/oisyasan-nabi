@@ -24,13 +24,6 @@ module.exports = {
           300: '#CBD5E1',
         },
       },
-      // Noto Sans JP（weight 別ファミリ）。className: font-jp / font-jp-medium / font-jp-bold / font-jp-black
-      fontFamily: {
-        jp: ['NotoSansJP_400Regular'],
-        'jp-medium': ['NotoSansJP_500Medium'],
-        'jp-bold': ['NotoSansJP_700Bold'],
-        'jp-black': ['NotoSansJP_900Black'],
-      },
     },
   },
   plugins: [],

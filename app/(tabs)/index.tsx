@@ -13,8 +13,8 @@ export default function HomeScreen() {
     <SafeAreaView edges={['top']} className="flex-1 bg-bg">
       <ScrollView contentContainerClassName="px-[18px] pt-4 pb-6">
         <View className="mb-5 pt-2">
-          <Text className="text-[25px] font-jp-black text-ink-900">{t('home.title')}</Text>
-          <Text className="text-[13px] font-jp-medium text-ink-500 mt-1">{t('home.subtitle')}</Text>
+          <Text className="text-[25px] font-black text-ink-900">{t('home.title')}</Text>
+          <Text className="text-[13px] font-medium text-ink-500 mt-1">{t('home.subtitle')}</Text>
         </View>
 
         <HeroButton
@@ -52,8 +52,8 @@ export default function HomeScreen() {
             <Ionicons name="bus" size={21} color={colors.green[600]} />
           </View>
           <View className="flex-1">
-            <Text className="text-[15px] font-jp-bold text-ink-900">{t('home.transport.title')}</Text>
-            <Text className="text-[12px] font-jp-medium text-ink-500 mt-0.5">
+            <Text className="text-[15px] font-bold text-ink-900">{t('home.transport.title')}</Text>
+            <Text className="text-[12px] font-medium text-ink-500 mt-0.5">
               {t('home.transport.subtitle')}
             </Text>
           </View>
