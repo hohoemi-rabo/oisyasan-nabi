@@ -5,10 +5,10 @@ import type {
   FollowUpResponse,
 } from '@/src/types/ai';
 
-// AI 判定は概ね 5 秒（§3.3.2）。thinking 無効化で応答は ~2.5s。クライアントは
-// Workers 側 AI_TIMEOUT_MS=5s の判定（成功 or fallback）を取りこぼさないよう少し長め。
-const RECOMMEND_TIMEOUT_MS = 8000;
-const FOLLOW_UP_TIMEOUT_MS = 10000;
+// 通常は ~2-3s だが Gemini 混雑時は遅くなる。Workers 側 AI_TIMEOUT_MS=12s の判定
+// （成功 or fallback）を必ず受け取れるよう、クライアントはそれより長く待つ。
+const RECOMMEND_TIMEOUT_MS = 18000;
+const FOLLOW_UP_TIMEOUT_MS = 15000;
 
 function workerUrl(): string {
   const url = process.env.EXPO_PUBLIC_AI_WORKER_URL;

@@ -1,8 +1,10 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 export const GEMINI_MODEL = 'gemini-3.5-flash';
-export const AI_TIMEOUT_MS = 5000;
-export const FOLLOW_UP_TIMEOUT_MS = 10000;
+// 実プロンプトは長く、Gemini 混雑時は応答が遅くなる（5s だと頻繁に GeminiTimeoutError →
+// fallback になった）。空いている時は ~2-3s で返るが、混雑耐性のため余裕を持たせる。
+export const AI_TIMEOUT_MS = 12000;
+export const FOLLOW_UP_TIMEOUT_MS = 12000;
 
 export class GeminiTimeoutError extends Error {
   constructor() {
