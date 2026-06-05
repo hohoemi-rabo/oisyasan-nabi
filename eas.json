@@ -7,6 +7,11 @@
     "base": {
       "android": {
         "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_SUPABASE_URL": "https://xsydqbczmzfufeywjfps.supabase.co",
+        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhzeWRxYmN6bXpmdWZleXdqZnBzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM0NTAyNjIsImV4cCI6MjA3OTAyNjI2Mn0.d-2zeARRlddiEXHRHYNWunRgnDNF10GK_zWZ3Nf4E6M",
+        "EXPO_PUBLIC_AI_WORKER_URL": "https://oisyasan-navi-ai.rabo-hohoemi.workers.dev"
       }
     },
     "development": {
