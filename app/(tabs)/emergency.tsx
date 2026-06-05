@@ -1,22 +1,37 @@
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
+import type { ComponentProps } from 'react';
 import { useEffect } from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { IconSymbol } from '@/components/ui/icon-symbol';
 import { DutyDoctorList } from '@/src/components/emergency/duty-doctor-list';
 import { EmergencyCallButton } from '@/src/components/emergency/emergency-call-button';
 import { FirstAidSteps } from '@/src/components/emergency/first-aid-steps';
 import { NightClinicCard } from '@/src/components/emergency/night-clinic-card';
 import { HospitalCard } from '@/src/components/hospital/hospital-card';
-import { BrandColors } from '@/src/constants/colors';
+import { colors } from '@/src/constants/colors';
+import { coloredShadow, shadows } from '@/src/constants/shadows';
 import { t } from '@/src/i18n';
 import { getRotationsForDate, isWeekend, todayKey } from '@/src/lib/emergency-rotations';
 import { useEmergencyRotationsStore } from '@/src/stores/emergency-rotations-store';
 import { useHospitalsStore } from '@/src/stores/hospitals-store';
 
-function SectionTitle({ children }: { children: string }) {
-  return <Text className="text-lg font-bold text-neutral-900 mt-6 mb-3">{children}</Text>;
+function SectionTitle({
+  icon,
+  color,
+  children,
+}: {
+  icon: ComponentProps<typeof Ionicons>['name'];
+  color: string;
+  children: string;
+}) {
+  return (
+    <View className="flex-row items-center mt-6 mb-3">
+      <Ionicons name={icon} size={18} color={color} />
+      <Text className="ml-2 text-[16px] font-bold text-ink-900">{children}</Text>
+    </View>
+  );
 }
 
 export default function EmergencyScreen() {
@@ -46,43 +61,53 @@ export default function EmergencyScreen() {
 
   return (
     <SafeAreaView edges={['top']} className="flex-1 bg-bg">
-      <ScrollView contentContainerClassName="px-5 pt-4 pb-8">
+      <ScrollView contentContainerClassName="px-[18px] pt-4 pb-8">
         <EmergencyCallButton />
 
-        <SectionTitle>{t('emergency.dutyDoctor.title')}</SectionTitle>
+        <SectionTitle icon="calendar" color={colors.red[600]}>
+          {t('emergency.dutyDoctor.title')}
+        </SectionTitle>
         {hasDutyToday ? (
           <DutyDoctorList rotations={todaysRotations} />
         ) : (
-          <View className="rounded-2xl border border-neutral-200 bg-white px-4 py-4">
-            <Text className="text-sm text-neutral-600">
+          <View style={shadows.card} className="rounded-[18px] border border-line bg-surface px-4 py-4">
+            <Text className="text-sm text-ink-500 leading-relaxed">
               {weekday ? t('emergency.dutyDoctor.weekday') : t('emergency.dutyDoctor.empty')}
             </Text>
           </View>
         )}
 
+        {/* 今月のカレンダーを見る */}
         <Pressable
           accessibilityRole="button"
           accessibilityLabel={t('emergency.calendar.button')}
           onPress={() => router.push('/emergency/calendar')}
-          className="mt-3 min-h-[56px] rounded-xl px-4 py-3 flex-row items-center bg-white border border-neutral-200 active:bg-neutral-100">
+          style={shadows.card}
+          className="mt-3 min-h-[56px] rounded-[18px] px-4 py-[15px] flex-row items-center bg-surface active:opacity-90">
           <View
-            className="w-10 h-10 rounded-full items-center justify-center mr-3"
-            style={{ backgroundColor: BrandColors.info }}>
-            <IconSymbol name="chevron.right" size={22} color="#ffffff" />
+            style={[{ backgroundColor: colors.blue[600] }, coloredShadow(colors.blue[600])]}
+            className="w-10 h-10 rounded-xl items-center justify-center mr-3">
+            <Ionicons name="calendar" size={20} color="#fff" />
           </View>
-          <Text className="flex-1 text-base font-semibold text-neutral-900">
+          <Text className="flex-1 text-[15px] font-bold text-ink-900">
             {t('emergency.calendar.button')}
           </Text>
-          <IconSymbol name="chevron.right" size={20} color={BrandColors.neutral500} />
+          <Ionicons name="chevron-forward" size={20} color={colors.ink[300]} />
         </Pressable>
 
-        <SectionTitle>{t('emergency.nightClinic.title')}</SectionTitle>
-        <NightClinicCard emphasized={weekday && !hasDutyToday} />
+        <SectionTitle icon="moon" color={colors.blue[600]}>
+          {t('emergency.nightClinic.title')}
+        </SectionTitle>
+        <NightClinicCard />
 
-        <SectionTitle>{t('emergency.firstAid.title')}</SectionTitle>
+        <SectionTitle icon="medkit" color={colors.teal[600]}>
+          {t('emergency.firstAid.title')}
+        </SectionTitle>
         <FirstAidSteps />
 
-        <SectionTitle>{t('emergency.hospitals.title')}</SectionTitle>
+        <SectionTitle icon="medical" color={colors.red[600]}>
+          {t('emergency.hospitals.title')}
+        </SectionTitle>
         {emergencyHospitals.length > 0 ? (
           emergencyHospitals.map((hospital) => (
             <HospitalCard
@@ -94,7 +119,7 @@ export default function EmergencyScreen() {
             />
           ))
         ) : (
-          <Text className="text-sm text-neutral-500 py-4 text-center">
+          <Text className="text-sm text-ink-400 py-4 text-center">
             {t('emergency.hospitals.empty')}
           </Text>
         )}

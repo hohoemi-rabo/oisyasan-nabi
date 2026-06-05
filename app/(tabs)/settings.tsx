@@ -40,29 +40,43 @@ export default function SettingsScreen() {
 
   return (
     <SafeAreaView edges={['top']} className="flex-1 bg-bg">
-      <ScrollView contentContainerClassName="px-5 pt-4 pb-8">
-        <Text className="text-2xl font-bold text-neutral-900 mb-6">{t('settings.title')}</Text>
+      <ScrollView contentContainerClassName="px-[18px] pt-4 pb-8">
+        <Text className="text-[21px] font-black text-ink-900 mb-5">{t('settings.title')}</Text>
 
         <SettingsRow
-          icon="👤"
+          icon="person"
+          tone="blue"
           title={t('settings.menu.profile')}
           onPress={() => router.push('/settings/profile')}
         />
         <SettingsRow
-          icon="⭐"
+          icon="star"
+          tone="amber"
           title={t('settings.menu.favorites')}
           onPress={() => router.push('/settings/favorites')}
         />
         <SettingsRow
-          icon="ℹ️"
+          icon="information-circle"
+          tone="teal"
           title={t('settings.menu.about')}
           onPress={() => router.push('/settings/about')}
         />
-        <SettingsRow icon="🔄" title={t('settings.menu.refresh')} onPress={handleRefresh} />
+        <SettingsRow
+          icon="refresh"
+          tone="green"
+          title={t('settings.menu.refresh')}
+          onPress={handleRefresh}
+        />
 
         {/* 言語切替は Phase 1 では日本語固定のため非表示。TODO(ticket-02 / Phase 2): 言語選択行を追加。 */}
 
-        <SettingsRow icon="🗑️" title={t('settings.menu.reset')} onPress={handleReset} destructive />
+        <SettingsRow
+          icon="trash"
+          tone="red"
+          title={t('settings.menu.reset')}
+          onPress={handleReset}
+          destructive
+        />
       </ScrollView>
     </SafeAreaView>
   );
