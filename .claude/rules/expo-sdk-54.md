@@ -64,9 +64,9 @@ paths:
 
 ## EAS Build / EAS Update
 
-- `eas-cli` はグローバルではなく `npx eas-cli ...` で十分。`eas.json` は **`development` / `preview` / `production` の 3 プロファイル**を `base` から `extends` で継承する形にする。
-- 環境変数は **EAS サーバー側に環境（development / preview / production）として登録** → `eas.json` の各プロファイルで `"environment": "production"` のように参照（Anon Key・Cloudflare Workers の URL 等をクライアントに焼き込まない）。
-- OTA は EAS Update。ネイティブを含まない軽微な修正（文言・i18n キー・診療科リスト等）は OTA 配信可。ネイティブモジュール追加時は再ビルド必須。
+- `eas-cli` はグローバルではなく `npx eas-cli ...` で十分。`eas.json` は **`development` / `preview` / `production` の 3 プロファイル**を `base` から `extends` で継承する形（構成済み）。EAS 連携は `npx eas-cli login`（Expo アカウント `hohoemirabo`）→ `npx eas-cli init`（`app.json` に `extra.eas.projectId`）。`preview` は APK・internal 配布（実機テスト用）、`production` は AAB（Play 提出用）。
+- **公開環境変数は `eas.json` の `base.env` に直書き**している（`EXPO_PUBLIC_SUPABASE_URL`/`_ANON_KEY`/`_AI_WORKER_URL`、全プロファイル継承）。`.env.local` は gitignore でクラウドビルドに乗らず、未設定だと起動時クラッシュするため。3 つとも公開可の値（REQUIREMENTS §9.2、Anon Key は RLS 前提・どのみちクライアントに焼き込まれる）なので Dashboard 登録ではなくリポ内 `eas.json` に置く判断。**`GEMINI_API_KEY` 等の秘匿値はここに置かない**（Workers Secret 管理）。秘匿が必要な値が増えたら `eas env:create`（サーバー側 environment）+ `eas.json` の `"environment"` 参照へ移行する。
+- OTA は EAS Update。ネイティブを含まない軽微な修正（文言・i18n キー・診療科リスト等）は OTA 配信可。ネイティブモジュール追加時は再ビルド必須。`channel` を使うため `expo-updates` 導入済み（`updates.url` + `runtimeVersion: { policy: 'appVersion' }`）。`eas build` 初回に未導入だと「install しますか？」→ install 後「再実行してね」で一旦停止する（**エラーではない**）。生成された差分（`app.json`・`package.json`・`package-lock.json`）をコミットしてからビルドを再実行する。
 
 ## 依存追加・バージョン管理
 

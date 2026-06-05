@@ -97,7 +97,7 @@ workers/src/
 
 ## Gemini モデル名 / thinking 設定
 
-`workers/src/gemini.ts` の `GEMINI_MODEL`。現在は **`gemini-3.5-flash`**（本番デプロイ済み・`source:'ai'` で実応答確認済み）。API 側で未対応エラーが出る場合はこの 1 行のみ別モデルに差し替え可能。プロンプト構造は変えなくて良い。
+`workers/src/gemini.ts` の `GEMINI_MODEL`。現在は **`gemini-3.1-flash-lite`**（本番デプロイ済み・`source:'ai'` で実応答確認済み・実測 ~0.8–1.3s）。API 側で未対応エラーが出る場合はこの 1 行のみ別モデルに差し替え可能。プロンプト構造は変えなくて良い。
 
 **重要（モデル変更時に必須・再発しやすい罠）**: `gemini-2.5/3.x flash` 系は既定で **thinking（思考）が有効**で、思考トークンが `maxOutputTokens` を食い尽くし JSON が途中で切れる → `finishReason=MAX_TOKENS` → パース失敗 → `source:'fallback'` になる（実測: 思考が 899 トークン消費し本文 86 トークンで切れた）。これを防ぐため `generateJson` の `generationConfig` に **`thinkingConfig: { thinkingBudget: 0 }`** を入れて thinking を無効化している（応答も ~2.5s に高速化）。**別の thinking 対応モデルへ変える時もこの設定は必ず残すこと**。SDK 0.21 の `GenerationConfig` 型に `thinkingConfig` が無いため、`generationConfig` を変数に切り出してから `getGenerativeModel` に渡している（インライン literal だと excess-property エラー）。
 

@@ -9,8 +9,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 Phase 1 MVP「お医者さんナビ」（南信地域向け医療機関ナビ Android アプリ）の実装フェーズ。
 
 - **完了チケット**: 01（基盤）・02（i18n）・03（Workers AI、本番デプロイ済み）・04（Web 管理画面、別リポで完了済み）・05（オンボーディング）・06（ホーム + 5 タブ）・07（条件検索）・08（病院詳細）・09（症状アンケート）・10（AI 結果、追加質問チャットのみ見送り）・11（緊急時ガイド + 月次カレンダー）・12（地域交通サービス）・13（プロフィール + 設定タブ）・14（かかりつけ医一覧）・15（ローカルキャッシュ + オフライン）・16（匿名検索ログ）。`search_logs` への匿名 INSERT は `src/lib/search-log.ts` の `logSearch(conditions, area)` / `logSymptom(draft, profile)` 経由で、symptom ログは memo・プロフィールを除外。
-- **残り**: 17（EAS / Play Store、**in_progress**）。ビルド不要の準備は完了済み（`eas.json` 作成・`android.package = com.rabohohoemi.oisyasannavi` + `versionCode:1`・`docs/privacy-policy.md` / `docs/terms-of-use.md` 草案）。残るは実ビルド（クラウド枠 or `eas build --local`）・Play Console 提出・アイコン/スクショ差し替え・規約のホスティング → URL を `settings/about.tsx` に投入・クラウドビルド時の EAS 環境変数登録。10 の追加質問チャット（`/api/follow-up` UI）と 12 のバス時刻表（`bus_*` データ投入後）も後続。依存関係は `docs/00-INDEX.md`。
-- 03 の Workers は **本番デプロイ済み**（Cloudflare、URL `https://oisyasan-navi-ai.rabo-hohoemi.workers.dev` を `.env.local` の `EXPO_PUBLIC_AI_WORKER_URL` に登録済み）。`GEMINI_API_KEY` は Workers Secret に設定済み、Rate Limiter の `namespace_id="1001"` のままで稼働。`source:'ai'` で実応答を確認済み。モデルは `gemini-3.5-flash`（`workers/src/gemini.ts` の `GEMINI_MODEL`、変更時はこの1行のみ差し替えて再デプロイ）。**flash 系は thinking が既定 ON で JSON が途中で切れ fallback になるため `thinkingConfig: { thinkingBudget: 0 }` を必ず維持**（詳細は `.claude/rules/workers.md`）。再デプロイは `cd workers && npm run deploy`。詳細は `workers/README.md`。
+- **残り**: 17（EAS / Play Store、**in_progress**）。EAS 連携・preview ビルドまで完了：Expo アカウント `hohoemirabo`、`eas init` 済み（`app.json` に `extra.eas.projectId` / `owner` / `updates.url` / `runtimeVersion`、`expo-updates` 導入で OTA 準備済み）。`android.package = com.rabohohoemi.oisyasannavi` + `versionCode:1`。**クラウドビルドの公開環境変数は `eas.json` の `base.env` に直書き**（`EXPO_PUBLIC_SUPABASE_URL`/`_ANON_KEY`/`_AI_WORKER_URL`。`.env.local` は gitignore でクラウドに乗らないため。3 つとも公開可＝REQUIREMENTS §9.2。ビルドログで読込確認済み）。**法務文書は確定 + GitHub Pages 公開済み**（`docs/{privacy-policy,terms-of-use,index}.html` を `main` の `/docs` + `.nojekyll` で配信、事業者=ほほえみラボ／連絡先 rabo.hohoemi@gmail.com／制定 2026-06-05、`settings/about.tsx` の `PRIVACY_URL`/`TERMS_URL` に投入済み。プライバシー: https://hohoemi-rabo.github.io/oisyasan-nabi/privacy-policy.html ）。残るは production AAB・Play Console 提出（プライバシー URL も登録）・アイコン/スクショ差し替え・Android media 権限（`app.json` の VIDEO/AUDIO 要否精査）。10 の追加質問チャット（`/api/follow-up` UI）と 12 のバス時刻表（`bus_*` データ投入後）も後続。依存関係は `docs/00-INDEX.md`。
+- 03 の Workers は **本番デプロイ済み**（Cloudflare、URL `https://oisyasan-navi-ai.rabo-hohoemi.workers.dev` を `.env.local` の `EXPO_PUBLIC_AI_WORKER_URL` に登録済み）。`GEMINI_API_KEY` は Workers Secret に設定済み、Rate Limiter の `namespace_id="1001"` のままで稼働。`source:'ai'` で実応答を確認済み。モデルは `gemini-3.1-flash-lite`（`workers/src/gemini.ts` の `GEMINI_MODEL`、変更時はこの1行のみ差し替えて再デプロイ。実測 ~0.8–1.3s）。**flash 系は thinking が既定 ON で JSON が途中で切れ fallback になるため `thinkingConfig: { thinkingBudget: 0 }` を必ず維持**（詳細は `.claude/rules/workers.md`）。再デプロイは `cd workers && npm run deploy`。詳細は `workers/README.md`。
 - ticket 07 以降のプレースホルダ画面（`/symptoms/questionnaire`・`(tabs)/{emergency,transport,settings}`・`/hospital/[id]`→既に本実装済み）は `src/components/common/screen-placeholder.tsx` でラベルだけ表示。`router.push` の Typed Routes 解決のため後続チケット着手前から存在させる方針。
 - `npm run reset-project` スクリプトは使わない（手動で残置整理済み）。
 
@@ -45,6 +45,11 @@ Phase 1 MVP「お医者さんナビ」（南信地域向け医療機関ナビ An
 | Workers ローカル開発 | `cd workers && npm run dev`（`http://127.0.0.1:8787`） |
 | Workers 本番デプロイ | `cd workers && npm run deploy` |
 | Workers Secrets 設定 | `cd workers && npm run secret:gemini` |
+| EAS ログイン / 連携 | `npx eas-cli login`（`hohoemirabo`） / `npx eas-cli init`（連携済み） |
+| 実機テスト用 APK ビルド | `npx eas-cli build --platform android --profile preview`（クラウド・約10〜15分・QR/URL からインストール） |
+| Play 提出用 AAB ビルド | `npx eas-cli build --platform android --profile production` |
+| ビルド一覧 / ダウンロード | <https://expo.dev/accounts/hohoemirabo/projects/oisyasan-nabi/builds> |
+| OTA 配信（ネイティブ非変更時） | `npx eas-cli update --channel preview`（要 `expo-updates`、導入済み） |
 
 テスト用のスクリプトは未設定です。導入する場合は `package.json` に `jest-expo` 等の構成を追加してください。
 
