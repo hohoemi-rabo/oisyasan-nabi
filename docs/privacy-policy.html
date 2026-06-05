@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>プライバシーポリシー｜お医者さんナビ</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", "Hiragino Sans", Meiryo, sans-serif;
+    line-height: 1.8; color: #0F172A; background: #EEF3F8; margin: 0; padding: 24px 16px 64px;
+  }
+  main { max-width: 760px; margin: 0 auto; background: #fff; border: 1px solid #E8EEF4;
+    border-radius: 18px; padding: 28px 24px; box-shadow: 0 6px 18px rgba(15,23,42,.07); }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .updated { color: #64748B; font-size: 13px; margin: 0 0 20px; }
+  h2 { font-size: 17px; margin: 28px 0 8px; padding-top: 8px; border-top: 1px solid #E8EEF4; }
+  h3 { font-size: 15px; margin: 18px 0 6px; }
+  p, li { font-size: 14.5px; }
+  ul { padding-left: 20px; }
+  blockquote { margin: 12px 0; padding: 10px 14px; background: #EAF2FF; border-left: 4px solid #2563EB; border-radius: 8px; color: #334155; }
+  .lead { color: #334155; }
+  a { color: #0D9488; }
+  footer { max-width: 760px; margin: 16px auto 0; color: #94A3B8; font-size: 12px; text-align: center; }
+</style>
+</head>
+<body>
+<main>
+  <h1>プライバシーポリシー（お医者さんナビ）</h1>
+  <p class="updated">最終更新日: 2026年6月5日</p>
+
+  <p class="lead">「お医者さんナビ」（以下「本アプリ」）は、南信地域（飯田市・下伊那郡）の医療機関・通院手段・救急情報を提供する Android アプリです。本アプリは利用者のプライバシーを尊重し、個人を特定する情報を収集しないことを基本方針としています。</p>
+
+  <h2>1. 収集しない情報</h2>
+  <p>本アプリはアカウント登録や認証を必要とせず、以下の情報を<strong>収集しません</strong>。</p>
+  <ul>
+    <li>氏名・メールアドレス・電話番号</li>
+    <li>位置情報の常時取得（GPS の継続的な追跡）</li>
+  </ul>
+
+  <h2>2. 端末内にのみ保存する情報</h2>
+  <p>以下の情報は利用者の<strong>端末内（ローカルストレージ）にのみ保存</strong>され、当方のサーバーには送信・保存されません。</p>
+  <ul>
+    <li>プロフィール（年齢層・居住エリア・移動補助の有無）</li>
+    <li>かかりつけ医として登録した医療機関</li>
+    <li>直近の検索条件</li>
+  </ul>
+  <p>これらは設定 &gt;「データを初期化」からいつでも全削除できます。</p>
+
+  <h2>3. 外部サービスへ送信する情報</h2>
+  <h3>3.1 AI による症状判定（重要）</h3>
+  <p>症状アンケートで「AI で判定する」を実行した場合に限り、以下の入力内容を、当方が運用する中継サーバー（Cloudflare Workers）を経由して <strong>Google の生成 AI（Gemini API）</strong> に送信し、緊急度・推奨診療科の判定に利用します。</p>
+  <ul>
+    <li>アンケートの入力内容：症状の部位・期間・症状の種類・しこりの大きさ・持病・服薬の有無、および<strong>自由記述欄に入力されたテキスト</strong></li>
+    <li>プロフィール（年齢層・居住エリア・移動補助の有無）</li>
+  </ul>
+  <p>これらは判定のためにその都度送信されるもので、判定結果を返した後にアプリ側で保存することはありません。送信先である Google のデータの取り扱いについては Google のプライバシーポリシーに従います。通信経路上、アクセス元の IP アドレスが Cloudflare 側で技術的に記録される場合があります。</p>
+  <blockquote>自由記述欄には、氏名や連絡先など個人を特定できる情報を入力しないことを推奨します。</blockquote>
+
+  <h3>3.2 医療機関・通院・救急情報の取得</h3>
+  <p>病院・診療時間・通院サービス・救急当番医のデータは、データベース（Supabase）から<strong>読み取り専用</strong>で取得し、端末に最大 24 時間キャッシュします。この取得において利用者の個人情報は送信しません。</p>
+
+  <h2>4. 匿名の利用ログ</h2>
+  <p>サービス改善のため、以下を<strong>匿名で</strong>記録します（個人を特定する情報は含みません）。</p>
+  <ul>
+    <li>条件検索の実行時：検索条件（診療科・市町村）</li>
+    <li>AI 判定の表示時：アンケートの項目（<strong>自由記述欄のテキストは除外</strong>）</li>
+  </ul>
+  <p>あわせて、居住エリア（市町村）を任意で記録します。これらのログは書き込み専用で、アプリ側から読み出すことはできません。通信に伴い IP アドレスが基盤側で記録される場合があります。</p>
+
+  <h2>5. 端末の権限</h2>
+  <ul>
+    <li><strong>写真・メディア</strong>：症状まとめを画像として保存する操作を行ったときのみ使用します。</li>
+    <li><strong>電話の発信</strong>：医療機関や 119 番への発信ボタンを押したとき、OS の電話アプリを起動します（自動発信はしません）。</li>
+    <li><strong>地図アプリの起動</strong>：「地図で開く」操作時に外部の地図アプリへ住所・座標を渡します。</li>
+  </ul>
+
+  <h2>6. 第三者提供</h2>
+  <p>上記 3.1（Google / Cloudflare）および 3.2・4（Supabase / Cloudflare）に記載の範囲で、サービス提供に必要な外部サービスを利用します。これら以外の第三者へ個人情報を提供することはありません。</p>
+
+  <h2>7. データの削除</h2>
+  <p>端末内に保存した情報は、設定 &gt;「データを初期化」で全て削除できます。アプリのアンインストールによっても端末内データは削除されます。</p>
+
+  <h2>8. 免責</h2>
+  <p>本アプリの AI 判定・情報提供は医療行為・診断ではありません。緊急時は 119 番に通報し、最終的な判断は必ず医師にご相談ください。</p>
+
+  <h2>9. 改定</h2>
+  <p>本ポリシーは必要に応じて改定します。重要な変更がある場合はアプリ内またはストア上で告知します。</p>
+
+  <h2>10. お問い合わせ</h2>
+  <p>ほほえみラボ<br>
+  <a href="mailto:rabo.hohoemi@gmail.com">rabo.hohoemi@gmail.com</a></p>
+</main>
+<footer>お医者さんナビ — ほほえみラボ</footer>
+</body>
+</html>
