@@ -22,8 +22,8 @@ export function DayDetailModal({ visible, dateKey, rotations, onClose }: Props) 
     <Modal visible={visible} animationType="slide" transparent onRequestClose={onClose}>
       <View className="flex-1 justify-end bg-black/40">
         <SafeAreaView edges={['bottom']} className="bg-neutral-50 rounded-t-2xl max-h-[80%]">
-          <View className="flex-row items-center justify-between px-5 py-3 border-b border-neutral-200">
-            <Text className="text-lg font-bold text-neutral-900">{heading}</Text>
+          <View className="flex-row items-center justify-between px-5 py-3 border-b border-line">
+            <Text className="text-lg font-bold text-ink-900">{heading}</Text>
             <Pressable
               accessibilityRole="button"
               accessibilityLabel={t('emergency.dayDetail.close')}
@@ -38,7 +38,7 @@ export function DayDetailModal({ visible, dateKey, rotations, onClose }: Props) 
             {dayRotations.length > 0 ? (
               <DutyDoctorList rotations={dayRotations} />
             ) : (
-              <Text className="text-sm text-neutral-500 py-6 text-center">
+              <Text className="text-sm text-ink-500 py-6 text-center">
                 {t('emergency.dayDetail.empty')}
               </Text>
             )}

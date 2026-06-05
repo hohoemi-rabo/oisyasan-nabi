@@ -14,10 +14,10 @@ export function OnboardingOption({ label, onPress, selected = false }: Props) {
       accessibilityState={{ selected }}
       onPress={onPress}
       className={`min-h-[56px] py-4 px-4 mb-3 rounded-xl border-2 active:bg-neutral-100 ${
-        selected ? 'border-blue-600 bg-blue-50' : 'border-neutral-200 bg-white'
+        selected ? 'border-teal-500 bg-teal-50' : 'border-line bg-surface'
       }`}>
       <Text
-        className={`text-base ${selected ? 'text-blue-700 font-semibold' : 'text-neutral-900'}`}>
+        className={`text-base ${selected ? 'text-teal-700 font-semibold' : 'text-ink-900'}`}>
         {label}
       </Text>
     </Pressable>

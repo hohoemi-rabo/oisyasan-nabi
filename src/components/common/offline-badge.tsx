@@ -1,3 +1,4 @@
+import { Ionicons } from '@expo/vector-icons';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -16,8 +17,9 @@ export function OfflineBadge() {
       pointerEvents="none"
       style={{ position: 'absolute', top: 0, left: 0, right: 0, paddingTop: insets.top, zIndex: 50 }}
       className="items-center">
-      <View className="bg-neutral-800 px-3 py-1 rounded-b-lg">
-        <Text className="text-xs font-semibold text-white">📡 {t('common.offline')}</Text>
+      <View className="flex-row items-center bg-ink-900 px-3 py-1 rounded-b-lg">
+        <Ionicons name="cloud-offline" size={13} color="#fff" />
+        <Text className="ml-1 text-xs font-bold text-white">{t('common.offline')}</Text>
       </View>
     </View>
   );

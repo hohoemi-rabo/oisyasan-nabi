@@ -1,8 +1,11 @@
+import { Ionicons } from '@expo/vector-icons';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { useEffect } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { colors } from '@/src/constants/colors';
+import { shadows } from '@/src/constants/shadows';
 import { t } from '@/src/i18n';
 import { callPhone, openWebsite } from '@/src/lib/linking';
 import { useTransportServicesStore } from '@/src/stores/transport-services-store';
@@ -38,7 +41,7 @@ export default function TransportDetailScreen() {
           {isLoading || loadedAt === null ? (
             <ActivityIndicator size="large" />
           ) : (
-            <Text className="text-base text-neutral-700">{t('transport.detail.notFound')}</Text>
+            <Text className="text-base text-ink-700">{t('transport.detail.notFound')}</Text>
           )}
         </View>
       </SafeAreaView>
@@ -53,15 +56,15 @@ export default function TransportDetailScreen() {
       <Stack.Screen options={{ title: service.name }} />
       <ScrollView contentContainerClassName="px-5 pt-4 pb-8">
         <View className="flex-row items-center flex-wrap mb-2">
-          <Text className="text-2xl font-bold text-neutral-900 mr-2">{service.name}</Text>
+          <Text className="text-2xl font-bold text-ink-900 mr-2">{service.name}</Text>
           <View className="bg-neutral-100 rounded-full px-2 py-0.5">
-            <Text className="text-xs text-neutral-600">
+            <Text className="text-xs text-ink-500">
               {t(`hospital.transport.serviceTypes.${service.service_type}`)}
             </Text>
           </View>
         </View>
 
-        <View className="bg-white rounded-2xl border border-neutral-200 px-4 py-2 mt-2">
+        <View style={shadows.card} className="bg-surface rounded-[18px] border border-line px-4 py-2 mt-2">
           <Row label={t('transport.detail.operator')} value={service.operator} />
           <Row label={t('transport.detail.area')} value={service.service_area.join('・')} />
           {method ? <Row label={t('transport.detail.booking')} value={method} /> : null}
@@ -98,9 +101,10 @@ export default function TransportDetailScreen() {
               accessibilityRole="button"
               accessibilityLabel={t('transport.detail.callBook')}
               onPress={() => callPhone(service.phone)}
-              className="min-h-[56px] mb-3 rounded-xl bg-blue-600 active:bg-blue-700 items-center justify-center">
-              <Text className="text-base font-semibold text-white">
-                📞 {t('transport.detail.callBook')}
+              className="min-h-[56px] mb-3 rounded-xl bg-teal-600 active:opacity-90 flex-row items-center justify-center">
+              <Ionicons name="call" size={18} color="#fff" />
+              <Text className="ml-2 text-base font-bold text-white">
+                {t('transport.detail.callBook')}
                 {service.phone ? `（${service.phone}）` : ''}
               </Text>
             </Pressable>
@@ -110,9 +114,10 @@ export default function TransportDetailScreen() {
               accessibilityRole="button"
               accessibilityLabel={t('transport.detail.webBook')}
               onPress={() => openWebsite(bookingUrl)}
-              className="min-h-[56px] rounded-xl border border-neutral-200 bg-white active:bg-neutral-100 items-center justify-center">
-              <Text className="text-base font-semibold text-neutral-800">
-                🌐 {t('transport.detail.webBook')}
+              className="min-h-[56px] rounded-xl border border-line bg-surface active:opacity-90 flex-row items-center justify-center">
+              <Ionicons name="globe-outline" size={18} color={colors.ink[700]} />
+              <Text className="ml-2 text-base font-bold text-ink-700">
+                {t('transport.detail.webBook')}
               </Text>
             </Pressable>
           ) : null}
@@ -124,9 +129,9 @@ export default function TransportDetailScreen() {
 
 function Row({ label, value, last }: { label: string; value: string; last?: boolean }) {
   return (
-    <View className={`py-3 ${last ? '' : 'border-b border-neutral-100'}`}>
-      <Text className="text-xs font-semibold text-neutral-500 mb-1">{label}</Text>
-      <Text className="text-base text-neutral-900">{value}</Text>
+    <View className={`py-3 ${last ? '' : 'border-b border-line'}`}>
+      <Text className="text-xs font-semibold text-ink-500 mb-1">{label}</Text>
+      <Text className="text-base text-ink-900">{value}</Text>
     </View>
   );
 }

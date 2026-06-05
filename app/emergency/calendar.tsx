@@ -5,7 +5,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Calendar, LocaleConfig, type DateData } from 'react-native-calendars';
 
 import { DayDetailModal } from '@/src/components/emergency/day-detail-modal';
-import { BrandColors } from '@/src/constants/colors';
+import { colors } from '@/src/constants/colors';
+import { shadows } from '@/src/constants/shadows';
 import { t } from '@/src/i18n';
 import { getDutyDateKeys } from '@/src/lib/emergency-rotations';
 import { useEmergencyRotationsStore } from '@/src/stores/emergency-rotations-store';
@@ -41,13 +42,13 @@ export default function EmergencyCalendarScreen() {
   const markedDates = useMemo(() => {
     const marks: Record<string, { marked?: boolean; dotColor?: string; selected?: boolean; selectedColor?: string }> = {};
     for (const key of getDutyDateKeys(rotations)) {
-      marks[key] = { marked: true, dotColor: BrandColors.emergency };
+      marks[key] = { marked: true, dotColor: colors.red[600] };
     }
     if (selectedDate) {
       marks[selectedDate] = {
         ...marks[selectedDate],
         selected: true,
-        selectedColor: BrandColors.info,
+        selectedColor: colors.teal[600],
       };
     }
     return marks;
@@ -61,17 +62,23 @@ export default function EmergencyCalendarScreen() {
   return (
     <SafeAreaView edges={['bottom']} className="flex-1 bg-bg">
       <Stack.Screen options={{ title: t('emergency.calendar.title') }} />
-      <View className="px-4 pt-4">
-        <Calendar
-          markedDates={markedDates}
-          onDayPress={handleDayPress}
-          enableSwipeMonths
-          theme={{
-            todayTextColor: BrandColors.info,
-            arrowColor: BrandColors.info,
-            textMonthFontWeight: 'bold',
-          }}
-        />
+      <View className="px-[18px] pt-4">
+        <View style={shadows.card} className="rounded-[18px] border border-line bg-surface overflow-hidden p-1">
+          <Calendar
+            markedDates={markedDates}
+            onDayPress={handleDayPress}
+            enableSwipeMonths
+            theme={{
+              todayTextColor: colors.teal[600],
+              arrowColor: colors.teal[600],
+              textMonthFontWeight: 'bold',
+              textSectionTitleColor: colors.ink[500],
+              monthTextColor: colors.ink[900],
+              dayTextColor: colors.ink[900],
+              textDisabledColor: colors.ink[300],
+            }}
+          />
+        </View>
       </View>
       <DayDetailModal
         visible={modalVisible}

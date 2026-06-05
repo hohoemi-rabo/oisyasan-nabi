@@ -1,3 +1,4 @@
+import { Ionicons } from '@expo/vector-icons';
 import { router, Stack } from 'expo-router';
 import { useEffect, useMemo } from 'react';
 import { ActivityIndicator, FlatList, Pressable, Text, View } from 'react-native';
@@ -5,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useShallow } from 'zustand/react/shallow';
 
 import { HospitalCard } from '@/src/components/hospital/hospital-card';
+import { colors } from '@/src/constants/colors';
 import { t } from '@/src/i18n';
 import { logSearch } from '@/src/lib/search-log';
 import { searchHospitals } from '@/src/lib/search-hospitals';
@@ -54,16 +56,16 @@ export default function SearchResultsScreen() {
               accessibilityLabel={t('common.backHome')}
               onPress={() => router.replace('/(tabs)')}
               className="min-h-[44px] px-2 flex-row items-center justify-center active:opacity-70">
-              <Text className="text-base mr-1">🏠</Text>
-              <Text className="text-base font-semibold text-blue-600">{t('common.home')}</Text>
+              <Ionicons name="home" size={16} color={colors.teal[600]} />
+              <Text className="ml-1 text-base font-bold text-teal-600">{t('common.home')}</Text>
             </Pressable>
           ),
         }}
       />
       {error ? (
         <View className="flex-1 items-center justify-center px-6">
-          <Text className="text-base text-neutral-700 mb-3">{t('search.results.error')}</Text>
-          <Text className="text-xs text-neutral-500 mb-4">{error}</Text>
+          <Text className="text-base text-ink-700 mb-3">{t('search.results.error')}</Text>
+          <Text className="text-xs text-ink-500 mb-4">{error}</Text>
           <Pressable
             accessibilityRole="button"
             accessibilityLabel={t('search.results.retry')}
@@ -75,11 +77,11 @@ export default function SearchResultsScreen() {
       ) : isLoading && data.length === 0 ? (
         <View className="flex-1 items-center justify-center">
           <ActivityIndicator size="large" />
-          <Text className="mt-3 text-sm text-neutral-500">{t('search.results.loading')}</Text>
+          <Text className="mt-3 text-sm text-ink-500">{t('search.results.loading')}</Text>
         </View>
       ) : results.length === 0 ? (
         <View className="flex-1 items-center justify-center px-6">
-          <Text className="text-base text-neutral-700 mb-4 text-center">
+          <Text className="text-base text-ink-700 mb-4 text-center">
             {t('search.results.empty.title')}
           </Text>
           <Pressable

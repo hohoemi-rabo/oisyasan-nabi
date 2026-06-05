@@ -13,7 +13,7 @@ export function ScheduleTable({ schedules }: Props) {
   for (const s of schedules) byDay.set(s.day_of_week, s);
 
   return (
-    <View className="rounded-xl overflow-hidden border border-neutral-200">
+    <View className="rounded-xl overflow-hidden border border-line">
       <View className="flex-row bg-neutral-100">
         <Cell flex={1} bold>
           {' '}
@@ -34,7 +34,7 @@ export function ScheduleTable({ schedules }: Props) {
         return (
           <View
             key={dayKey}
-            className={`flex-row ${idx % 2 === 0 ? 'bg-white' : 'bg-neutral-50'}`}>
+            className={`flex-row ${idx % 2 === 0 ? 'bg-surface' : 'bg-neutral-50'}`}>
             <Cell flex={1} bold>
               {t(`hospital.schedule.day.${dayKey}`)}
             </Cell>
@@ -71,9 +71,9 @@ function Cell({
   muted?: boolean;
 }) {
   return (
-    <View style={{ flex }} className="px-3 py-2 border-r border-neutral-100">
+    <View style={{ flex }} className="px-3 py-2 border-r border-line">
       <Text
-        className={`text-sm ${bold ? 'font-semibold text-neutral-900' : muted ? 'text-neutral-400' : 'text-neutral-700'}`}>
+        className={`text-sm ${bold ? 'font-semibold text-ink-900' : muted ? 'text-ink-400' : 'text-ink-700'}`}>
         {children}
       </Text>
     </View>

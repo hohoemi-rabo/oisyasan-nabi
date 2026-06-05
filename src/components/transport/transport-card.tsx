@@ -1,5 +1,8 @@
+import { Ionicons } from '@expo/vector-icons';
 import { Pressable, Text, View } from 'react-native';
 
+import { colors } from '@/src/constants/colors';
+import { shadows } from '@/src/constants/shadows';
 import { t } from '@/src/i18n';
 import { callPhone, openWebsite } from '@/src/lib/linking';
 import type { TransportService } from '@/src/types/transport';
@@ -17,27 +20,30 @@ export function TransportCard({ service, onPress }: Props) {
       accessibilityRole="button"
       accessibilityLabel={service.name}
       onPress={onPress}
-      className="bg-white rounded-2xl border border-neutral-200 px-4 py-4 mb-3 active:bg-neutral-50">
+      style={shadows.card}
+      className="bg-surface rounded-[18px] border border-line px-4 py-4 mb-3 active:opacity-90">
       <View className="flex-row items-center flex-wrap mb-1">
-        <Text className="text-lg font-bold text-neutral-900 mr-2">{service.name}</Text>
-        <View className="bg-neutral-100 rounded-full px-2 py-0.5">
-          <Text className="text-xs text-neutral-600">
+        <Text className="text-[17px] font-bold text-ink-900 mr-2">{service.name}</Text>
+        <View style={{ backgroundColor: colors.teal[50] }} className="rounded-lg px-2 py-0.5">
+          <Text style={{ color: colors.teal[700] }} className="text-[11px] font-bold">
             {t(`hospital.transport.serviceTypes.${service.service_type}`)}
           </Text>
         </View>
         {service.wheelchair_accessible ? (
-          <View className="ml-1 bg-blue-50 rounded-full px-2 py-0.5">
-            <Text className="text-xs text-blue-700">♿</Text>
+          <View
+            style={{ backgroundColor: colors.blue[50] }}
+            className="ml-1 flex-row items-center rounded-lg px-2 py-0.5">
+            <Ionicons name="accessibility" size={12} color={colors.blue[700]} />
           </View>
         ) : null}
       </View>
 
-      <Text className="text-sm text-neutral-500">{service.operator}</Text>
-      <Text className="text-sm text-neutral-500 mt-0.5">
+      <Text className="text-[12.5px] font-medium text-ink-500">{service.operator}</Text>
+      <Text className="text-[12.5px] font-medium text-ink-500 mt-0.5">
         {t('transport.card.area')}: {service.service_area.join('・')}
       </Text>
       {service.fare_info ? (
-        <Text className="text-sm text-neutral-600 mt-0.5">{service.fare_info}</Text>
+        <Text className="text-[12.5px] font-medium text-ink-700 mt-0.5">{service.fare_info}</Text>
       ) : null}
 
       <View className="flex-row flex-wrap mt-3">
@@ -46,10 +52,9 @@ export function TransportCard({ service, onPress }: Props) {
             accessibilityRole="button"
             accessibilityLabel={t('transport.card.callBook')}
             onPress={() => callPhone(service.phone)}
-            className="min-h-[44px] px-4 py-2 mr-2 rounded-xl bg-blue-600 active:bg-blue-700 flex-row items-center">
-            <Text className="text-sm font-semibold text-white">
-              📞 {t('transport.card.callBook')}
-            </Text>
+            className="min-h-[44px] px-4 py-2 mr-2 rounded-xl bg-teal-600 active:opacity-90 flex-row items-center">
+            <Ionicons name="call" size={15} color="#fff" />
+            <Text className="ml-1.5 text-sm font-bold text-white">{t('transport.card.callBook')}</Text>
           </Pressable>
         ) : null}
         {bookingUrl ? (
@@ -57,10 +62,9 @@ export function TransportCard({ service, onPress }: Props) {
             accessibilityRole="button"
             accessibilityLabel={t('transport.card.webBook')}
             onPress={() => openWebsite(bookingUrl)}
-            className="min-h-[44px] px-4 py-2 rounded-xl border border-neutral-200 bg-white active:bg-neutral-100 flex-row items-center">
-            <Text className="text-sm font-semibold text-neutral-800">
-              🌐 {t('transport.card.webBook')}
-            </Text>
+            className="min-h-[44px] px-4 py-2 rounded-xl border border-line bg-surface active:opacity-90 flex-row items-center">
+            <Ionicons name="globe-outline" size={15} color={colors.ink[700]} />
+            <Text className="ml-1.5 text-sm font-bold text-ink-700">{t('transport.card.webBook')}</Text>
           </Pressable>
         ) : null}
       </View>

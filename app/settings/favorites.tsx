@@ -60,16 +60,16 @@ export default function FavoritesScreen() {
       <ScrollView contentContainerClassName="px-5 pt-4 pb-8">
         {ordered.length === 0 ? (
           <View className="items-center justify-center py-16 px-6">
-            <Text className="text-base text-neutral-700 mb-2 text-center">
+            <Text className="text-base text-ink-700 mb-2 text-center">
               {t('favorites.empty.title')}
             </Text>
-            <Text className="text-sm text-neutral-500 text-center">
+            <Text className="text-sm text-ink-500 text-center">
               {t('favorites.empty.hint')}
             </Text>
           </View>
         ) : (
           <>
-            <Text className="text-sm text-neutral-500 mb-3">
+            <Text className="text-sm text-ink-500 mb-3">
               {t('favorites.count', { count: ordered.length, limit: FAVORITES_LIMIT })}
             </Text>
             {ordered.map((favorite, index) => {

@@ -29,7 +29,7 @@ export function FacilityBadges({ hospital }: Props) {
 
   return (
     <View>
-      <Text className="text-sm font-semibold text-neutral-600 mb-2">
+      <Text className="text-sm font-semibold text-ink-500 mb-2">
         {t('hospital.facilities.title')}
       </Text>
       <View className="flex-row flex-wrap">

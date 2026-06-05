@@ -18,17 +18,17 @@ export function BigCheckbox({ label, selected, onPress, variant = 'multi' }: Pro
       accessibilityState={variant === 'multi' ? { checked: selected } : { selected }}
       onPress={onPress}
       className={`min-h-[56px] flex-row items-center py-4 px-4 mb-3 rounded-xl border-2 active:bg-neutral-100 ${
-        selected ? 'border-blue-600 bg-blue-50' : 'border-neutral-200 bg-white'
+        selected ? 'border-teal-500 bg-teal-50' : 'border-line bg-surface'
       }`}>
       <View
         className={`w-7 h-7 mr-3 items-center justify-center rounded-md border-2 ${
-          selected ? 'border-blue-600 bg-blue-600' : 'border-neutral-300 bg-white'
+          selected ? 'border-teal-500 bg-teal-600' : 'border-neutral-300 bg-surface'
         } ${variant === 'single' ? 'rounded-full' : ''}`}>
         {selected ? <Text className="text-sm font-bold text-white">{mark}</Text> : null}
       </View>
       <Text
         className={`flex-1 text-base ${
-          selected ? 'text-blue-700 font-semibold' : 'text-neutral-900'
+          selected ? 'text-teal-700 font-semibold' : 'text-ink-900'
         }`}>
         {label}
       </Text>

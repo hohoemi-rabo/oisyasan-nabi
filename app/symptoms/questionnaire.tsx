@@ -167,12 +167,12 @@ export default function SymptomsQuestionnaireScreen() {
         ));
       case 'medicine':
         return (
-          <View className="min-h-[56px] flex-row items-center justify-between rounded-xl border-2 border-neutral-200 px-4 py-4">
-            <Text className="flex-1 text-base text-neutral-900">
+          <View className="min-h-[56px] flex-row items-center justify-between rounded-xl border-2 border-line px-4 py-4">
+            <Text className="flex-1 text-base text-ink-900">
               {t('symptoms.questionnaire.medicine.label')}
             </Text>
             <View className="flex-row items-center">
-              <Text className="mr-3 text-base font-semibold text-neutral-700">
+              <Text className="mr-3 text-base font-semibold text-ink-700">
                 {draft.medicine
                   ? t('symptoms.questionnaire.medicine.yes')
                   : t('symptoms.questionnaire.medicine.no')}
@@ -195,7 +195,7 @@ export default function SymptomsQuestionnaireScreen() {
             placeholderTextColor="#9ca3af"
             multiline
             textAlignVertical="top"
-            className="min-h-[140px] rounded-xl border-2 border-neutral-200 px-4 py-3 text-base text-neutral-900"
+            className="min-h-[140px] rounded-xl border-2 border-line px-4 py-3 text-base text-ink-900"
           />
         );
       case 'confirm':
@@ -284,11 +284,11 @@ function ConfirmSummary({ draft }: { draft: ConfirmDraft }) {
   return (
     <View>
       {visibleRows.map((row) => (
-        <View key={row.labelKey} className="mb-3 border-b border-neutral-100 pb-3">
-          <Text className="mb-1 text-xs font-semibold text-neutral-500">
+        <View key={row.labelKey} className="mb-3 border-b border-line pb-3">
+          <Text className="mb-1 text-xs font-semibold text-ink-500">
             {tx(`symptoms.questionnaire.confirm.fields.${row.labelKey}`)}
           </Text>
-          <Text className="text-base text-neutral-900">{row.value}</Text>
+          <Text className="text-base text-ink-900">{row.value}</Text>
         </View>
       ))}
     </View>

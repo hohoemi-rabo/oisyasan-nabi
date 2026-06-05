@@ -37,17 +37,17 @@ export default function OnboardingMobilityScreen() {
           accessibilityLabel={t('onboarding.common.skip')}
           onPress={handleSkip}
           className="min-h-[44px] px-3 justify-center">
-          <Text className="text-sm text-neutral-500">{t('onboarding.common.skip')}</Text>
+          <Text className="text-sm text-ink-500">{t('onboarding.common.skip')}</Text>
         </Pressable>
       </View>
 
       <OnboardingProgress current={4} />
 
       <View className="px-6 pt-2 pb-4">
-        <Text className="text-2xl font-bold text-neutral-900 mb-2">
+        <Text className="text-2xl font-bold text-ink-900 mb-2">
           {t('onboarding.mobility.title')}
         </Text>
-        <Text className="text-sm text-neutral-600">{t('onboarding.mobility.description')}</Text>
+        <Text className="text-sm text-ink-500">{t('onboarding.mobility.description')}</Text>
       </View>
 
       <ScrollView className="flex-1 px-6">

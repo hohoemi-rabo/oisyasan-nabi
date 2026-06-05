@@ -50,7 +50,7 @@ export default function TransportScreen() {
   return (
     <SafeAreaView edges={['top']} className="flex-1 bg-bg">
       <ScrollView contentContainerClassName="px-5 pt-3 pb-8">
-        <Text className="text-2xl font-bold text-neutral-900 mb-4">{t('transport.title')}</Text>
+        <Text className="text-2xl font-bold text-ink-900 mb-4">{t('transport.title')}</Text>
 
         <Section title={t('transport.filters.serviceType')}>
           <View className="flex-row flex-wrap">
@@ -93,12 +93,12 @@ export default function TransportScreen() {
           accessibilityLabel={t('transport.filters.clear')}
           onPress={clear}
           className="min-h-[44px] mb-4 items-center justify-center">
-          <Text className="text-sm text-neutral-500 underline">{t('transport.filters.clear')}</Text>
+          <Text className="text-sm text-ink-500 underline">{t('transport.filters.clear')}</Text>
         </Pressable>
 
         {error ? (
           <View className="items-center justify-center py-10 px-6">
-            <Text className="text-base text-neutral-700 mb-3">{t('transport.results.error')}</Text>
+            <Text className="text-base text-ink-700 mb-3">{t('transport.results.error')}</Text>
             <Pressable
               accessibilityRole="button"
               accessibilityLabel={t('transport.results.retry')}
@@ -112,15 +112,15 @@ export default function TransportScreen() {
         ) : isLoading && data.length === 0 ? (
           <View className="items-center justify-center py-10">
             <ActivityIndicator size="large" />
-            <Text className="mt-3 text-sm text-neutral-500">{t('transport.results.loading')}</Text>
+            <Text className="mt-3 text-sm text-ink-500">{t('transport.results.loading')}</Text>
           </View>
         ) : results.length === 0 ? (
-          <Text className="text-sm text-neutral-500 py-10 text-center">
+          <Text className="text-sm text-ink-500 py-10 text-center">
             {t('transport.results.empty')}
           </Text>
         ) : (
           <>
-            <Text className="text-sm text-neutral-500 mb-3">
+            <Text className="text-sm text-ink-500 mb-3">
               {t('transport.results.count', { count: results.length })}
             </Text>
             {results.map((service) => (
@@ -142,7 +142,7 @@ export default function TransportScreen() {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <View className="mb-5">
-      <Text className="text-sm font-semibold text-neutral-600 mb-2">{title}</Text>
+      <Text className="text-sm font-semibold text-ink-500 mb-2">{title}</Text>
       {children}
     </View>
   );

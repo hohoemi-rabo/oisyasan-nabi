@@ -1,5 +1,7 @@
+import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
 import { router, Stack, useLocalSearchParams } from 'expo-router';
+import type { ComponentProps } from 'react';
 import { useEffect, useMemo } from 'react';
 import { ActivityIndicator, Alert, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -7,6 +9,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { FacilityBadges } from '@/src/components/hospital/facility-badges';
 import { ScheduleTable } from '@/src/components/hospital/schedule-table';
 import { TransportSection } from '@/src/components/hospital/transport-section';
+import { colors } from '@/src/constants/colors';
+import { shadows } from '@/src/constants/shadows';
 import { t } from '@/src/i18n';
 import { isCurrentlyOpen } from '@/src/lib/is-currently-open';
 import { callPhone, openGoogleMaps, openWebsite } from '@/src/lib/linking';
@@ -40,8 +44,8 @@ export default function HospitalDetailScreen() {
   if (error) {
     return (
       <Centered>
-        <Text className="text-base text-neutral-700 mb-3">{t('hospital.error')}</Text>
-        <Text className="text-xs text-neutral-500 mb-4">{error}</Text>
+        <Text className="text-base text-ink-700 mb-3">{t('hospital.error')}</Text>
+        <Text className="text-xs text-ink-500 mb-4">{error}</Text>
         <PrimaryButton label={t('hospital.retry')} onPress={() => load()} />
       </Centered>
     );
@@ -50,14 +54,14 @@ export default function HospitalDetailScreen() {
     return (
       <Centered>
         <ActivityIndicator size="large" />
-        <Text className="mt-3 text-sm text-neutral-500">{t('hospital.loading')}</Text>
+        <Text className="mt-3 text-sm text-ink-500">{t('hospital.loading')}</Text>
       </Centered>
     );
   }
   if (!hospital) {
     return (
       <Centered>
-        <Text className="text-base text-neutral-700 mb-4">{t('hospital.notFound.title')}</Text>
+        <Text className="text-base text-ink-700 mb-4">{t('hospital.notFound.title')}</Text>
         <PrimaryButton label={t('hospital.notFound.back')} onPress={() => router.back()} />
       </Centered>
     );
@@ -85,12 +89,12 @@ export default function HospitalDetailScreen() {
       <ScrollView contentContainerClassName="px-5 pt-4 pb-10">
         <View className="mb-4">
           <View className="flex-row items-center flex-wrap mb-2">
-            <Text className="text-2xl font-bold text-neutral-900 mr-2">{hospital.name}</Text>
+            <Text className="text-2xl font-bold text-ink-900 mr-2">{hospital.name}</Text>
             <View
               className={`px-2 py-0.5 rounded-full ${open ? 'bg-green-100' : 'bg-neutral-100'}`}>
               <Text
                 className={`text-xs font-semibold ${
-                  open ? 'text-green-700' : 'text-neutral-500'
+                  open ? 'text-green-700' : 'text-ink-500'
                 }`}>
                 {open ? `● ${t('hospital.openNow')}` : `○ ${t('hospital.closed')}`}
               </Text>
@@ -102,7 +106,7 @@ export default function HospitalDetailScreen() {
                 <View
                   key={c}
                   className="bg-neutral-100 rounded-full px-2 py-0.5 mr-1.5 mb-1">
-                  <Text className="text-xs text-neutral-600">{c}</Text>
+                  <Text className="text-xs text-ink-500">{c}</Text>
                 </View>
               ))}
             </View>
@@ -124,11 +128,11 @@ export default function HospitalDetailScreen() {
 
         <View className="flex-row mb-4">
           {hospital.tel ? (
-            <ActionButton label={t('hospital.actions.call')} icon="📞" onPress={() => callPhone(hospital.tel)} />
+            <ActionButton label={t('hospital.actions.call')} icon="call" onPress={() => callPhone(hospital.tel)} />
           ) : null}
           <ActionButton
             label={t('hospital.actions.map')}
-            icon="🗺️"
+            icon="map"
             onPress={() =>
               openGoogleMaps({
                 latitude: hospital.latitude,
@@ -139,7 +143,7 @@ export default function HospitalDetailScreen() {
             }
           />
           {hospital.website ? (
-            <ActionButton label={t('hospital.actions.website')} icon="🌐" onPress={() => openWebsite(hospital.website)} />
+            <ActionButton label={t('hospital.actions.website')} icon="globe-outline" onPress={() => openWebsite(hospital.website)} />
           ) : null}
         </View>
 
@@ -147,14 +151,16 @@ export default function HospitalDetailScreen() {
           accessibilityRole="button"
           accessibilityLabel={isFavorite ? t('hospital.favorite.remove') : t('hospital.favorite.add')}
           onPress={handleToggleFavorite}
-          className={`min-h-[52px] mb-5 rounded-xl items-center justify-center flex-row active:opacity-80 ${
-            isFavorite ? 'bg-yellow-100 border-2 border-yellow-300' : 'bg-yellow-500 active:bg-yellow-600'
+          className={`min-h-[52px] mb-5 rounded-xl items-center justify-center flex-row active:opacity-90 ${
+            isFavorite ? 'bg-amber-50 border-2 border-amber-200' : 'bg-amber-600'
           }`}>
-          <Text
-            className={`text-base font-semibold ${
-              isFavorite ? 'text-yellow-800' : 'text-white'
-            }`}>
-            {isFavorite ? `⭐ ${t('hospital.favorite.remove')}` : `☆ ${t('hospital.favorite.add')}`}
+          <Ionicons
+            name={isFavorite ? 'star' : 'star-outline'}
+            size={18}
+            color={isFavorite ? colors.amber[700] : '#fff'}
+          />
+          <Text className={`ml-2 text-base font-bold ${isFavorite ? 'text-amber-700' : 'text-white'}`}>
+            {isFavorite ? t('hospital.favorite.remove') : t('hospital.favorite.add')}
           </Text>
         </Pressable>
 
@@ -177,7 +183,7 @@ export default function HospitalDetailScreen() {
 
         {hospital.note ? (
           <Section title={t('hospital.note')}>
-            <Text className="text-sm text-neutral-700 leading-relaxed">{hospital.note}</Text>
+            <Text className="text-sm text-ink-700 leading-relaxed">{hospital.note}</Text>
           </Section>
         ) : null}
       </ScrollView>
@@ -207,9 +213,9 @@ function PrimaryButton({ label, onPress }: { label: string; onPress: () => void 
 
 function Section({ title, children }: { title?: string; children: React.ReactNode }) {
   return (
-    <View className="bg-white border border-neutral-200 rounded-xl p-4 mb-4">
+    <View className="bg-surface border border-line rounded-xl p-4 mb-4">
       {title ? (
-        <Text className="text-sm font-semibold text-neutral-600 mb-3">{title}</Text>
+        <Text className="text-sm font-semibold text-ink-500 mb-3">{title}</Text>
       ) : null}
       {children}
     </View>
@@ -231,8 +237,8 @@ function Row({
 }) {
   return (
     <View className="mb-2 last:mb-0">
-      <Text className="text-xs font-semibold text-neutral-500 mb-1">{label}</Text>
-      <Text className={`text-sm text-neutral-900 ${preserveLines ? '' : ''}`}>{children}</Text>
+      <Text className="text-xs font-semibold text-ink-500 mb-1">{label}</Text>
+      <Text className={`text-sm text-ink-900 ${preserveLines ? '' : ''}`}>{children}</Text>
     </View>
   );
 }
@@ -243,7 +249,7 @@ function ActionButton({
   onPress,
 }: {
   label: string;
-  icon: string;
+  icon: ComponentProps<typeof Ionicons>['name'];
   onPress: () => void;
 }) {
   return (
@@ -251,9 +257,10 @@ function ActionButton({
       accessibilityRole="button"
       accessibilityLabel={label}
       onPress={onPress}
-      className="flex-1 mx-1 min-h-[56px] bg-white border border-neutral-200 rounded-xl items-center justify-center active:bg-neutral-100">
-      <Text className="text-xl mb-0.5">{icon}</Text>
-      <Text className="text-xs font-semibold text-neutral-700">{label}</Text>
+      style={shadows.card}
+      className="flex-1 mx-1 min-h-[60px] bg-surface border border-line rounded-[18px] items-center justify-center active:opacity-90">
+      <Ionicons name={icon} size={20} color={colors.teal[600]} />
+      <Text className="mt-0.5 text-xs font-bold text-ink-700">{label}</Text>
     </Pressable>
   );
 }

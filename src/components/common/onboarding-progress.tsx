@@ -15,7 +15,7 @@ export function OnboardingProgress({ current, total = 4 }: Props) {
         <View
           key={n}
           className={`h-2 rounded-full ${
-            n === current ? 'w-6 bg-blue-600' : 'w-2 bg-neutral-300'
+            n === current ? 'w-6 bg-teal-600' : 'w-2 bg-neutral-300'
           }`}
         />
       ))}

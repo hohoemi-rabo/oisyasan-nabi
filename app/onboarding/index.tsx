@@ -25,15 +25,15 @@ export default function OnboardingWelcomeScreen() {
           accessibilityLabel={t('onboarding.common.skip')}
           onPress={handleSkip}
           className="min-h-[44px] px-3 justify-center">
-          <Text className="text-sm text-neutral-500">{t('onboarding.common.skip')}</Text>
+          <Text className="text-sm text-ink-500">{t('onboarding.common.skip')}</Text>
         </Pressable>
       </View>
 
       <View className="flex-1 px-6 justify-center">
-        <Text className="text-3xl font-bold text-neutral-900 mb-4">
+        <Text className="text-3xl font-bold text-ink-900 mb-4">
           {t('onboarding.welcome.title')}
         </Text>
-        <Text className="text-base text-neutral-600 leading-relaxed mb-10">
+        <Text className="text-base text-ink-500 leading-relaxed mb-10">
           {t('onboarding.welcome.description')}
         </Text>
       </View>

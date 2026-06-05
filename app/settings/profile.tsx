@@ -81,7 +81,7 @@ export default function ProfileEditScreen() {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <View className="mb-6">
-      <Text className="text-sm font-semibold text-neutral-600 mb-3">{title}</Text>
+      <Text className="text-sm font-semibold text-ink-500 mb-3">{title}</Text>
       {children}
     </View>
   );

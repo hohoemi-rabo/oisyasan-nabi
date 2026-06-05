@@ -1,3 +1,4 @@
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { ActivityIndicator, Alert, Pressable, ScrollView, Text, View } from 'react-native';
@@ -5,6 +6,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useShallow } from 'zustand/react/shallow';
 
 import { CollapsibleSection } from '@/src/components/symptoms/collapsible-section';
+import { colors } from '@/src/constants/colors';
+import { shadows } from '@/src/constants/shadows';
 import { ResultHospitalCard } from '@/src/components/symptoms/result-hospital-card';
 import { UrgencyBadge } from '@/src/components/symptoms/urgency-badge';
 import { LUMP_SYMPTOM_VALUE } from '@/src/constants/symptom-options';
@@ -138,15 +141,15 @@ export default function SymptomsResultsScreen() {
 
   return (
     <SafeAreaView edges={['top', 'bottom']} className="flex-1 bg-bg">
-      <View className="flex-row items-center px-4 py-2 border-b border-neutral-100 bg-white">
+      <View className="flex-row items-center px-3 py-2 border-b border-line bg-surface">
         <Pressable
           accessibilityRole="button"
           accessibilityLabel={t('symptoms.questionnaire.back')}
           onPress={() => router.back()}
           className="min-h-[44px] min-w-[44px] items-start justify-center">
-          <Text className="text-2xl text-neutral-700">‹</Text>
+          <Ionicons name="chevron-back" size={26} color={colors.ink[700]} />
         </Pressable>
-        <Text className="flex-1 text-lg font-bold text-neutral-900">
+        <Text className="flex-1 text-lg font-bold text-ink-900">
           {t('symptoms.result.title')}
         </Text>
         <Pressable
@@ -154,17 +157,15 @@ export default function SymptomsResultsScreen() {
           accessibilityLabel={t('common.backHome')}
           onPress={() => router.replace('/(tabs)')}
           className="min-h-[44px] px-3 flex-row items-center justify-center rounded-lg active:bg-neutral-100">
-          <Text className="text-base mr-1">🏠</Text>
-          <Text className="text-base font-semibold text-blue-600">
-            {t('common.home')}
-          </Text>
+          <Ionicons name="home" size={16} color={colors.teal[600]} />
+          <Text className="ml-1 text-base font-bold text-teal-600">{t('common.home')}</Text>
         </Pressable>
       </View>
 
       {loading || !result ? (
         <View className="flex-1 items-center justify-center">
           <ActivityIndicator size="large" />
-          <Text className="mt-3 text-sm text-neutral-500">{t('symptoms.result.loading')}</Text>
+          <Text className="mt-3 text-sm text-ink-500">{t('symptoms.result.loading')}</Text>
         </View>
       ) : (
         <ScrollView contentContainerClassName="px-5 pt-4 pb-8">
@@ -175,11 +176,11 @@ export default function SymptomsResultsScreen() {
           ) : null}
 
           <UrgencyBadge urgency={result.urgency} />
-          <Text className="text-base text-neutral-900 mt-3 leading-relaxed">
+          <Text className="text-base text-ink-900 mt-3 leading-relaxed">
             {result.urgency_reason}
           </Text>
-          <Text className="text-base text-neutral-800 mt-3 leading-relaxed">{result.advice}</Text>
-          <Text className="text-xs text-neutral-500 mt-3 leading-relaxed">
+          <Text className="text-base text-ink-900 mt-3 leading-relaxed">{result.advice}</Text>
+          <Text className="text-xs text-ink-500 mt-3 leading-relaxed">
             {result.disclaimer}
           </Text>
 
@@ -193,14 +194,14 @@ export default function SymptomsResultsScreen() {
                 </View>
               ))}
             </View>
-            <Text className="text-sm text-neutral-600 leading-relaxed">
+            <Text className="text-sm text-ink-500 leading-relaxed">
               {result.department_reason}
             </Text>
           </CollapsibleSection>
 
           <CollapsibleSection title={t('symptoms.result.summary.title')}>
-            <View ref={summaryRef} collapsable={false} className="bg-white rounded-xl py-1">
-              <Text className="text-sm text-neutral-800 leading-relaxed">
+            <View ref={summaryRef} collapsable={false} className="bg-surface rounded-xl py-1">
+              <Text className="text-sm text-ink-900 leading-relaxed">
                 {buildSummaryText(draft)}
               </Text>
             </View>
@@ -218,15 +219,15 @@ export default function SymptomsResultsScreen() {
             </Pressable>
           </CollapsibleSection>
 
-          <Text className="text-lg font-bold text-neutral-900 mt-4 mb-3">
+          <Text className="text-lg font-bold text-ink-900 mt-4 mb-3">
             {t('symptoms.result.hospitals.title')}
           </Text>
           {hospitals.length === 0 ? (
-            <Text className="text-sm text-neutral-500 py-6 text-center">
+            <Text className="text-sm text-ink-500 py-6 text-center">
               {t('symptoms.result.hospitals.emptyData')}
             </Text>
           ) : scoredHospitals.length === 0 ? (
-            <Text className="text-sm text-neutral-500 py-6 text-center">
+            <Text className="text-sm text-ink-500 py-6 text-center">
               {t('symptoms.result.hospitals.emptyMatch')}
             </Text>
           ) : (
@@ -243,10 +244,10 @@ export default function SymptomsResultsScreen() {
             accessibilityRole="button"
             accessibilityLabel={t('common.backHome')}
             onPress={() => router.replace('/(tabs)')}
-            className="min-h-[52px] mt-6 rounded-xl border border-neutral-300 bg-white items-center justify-center active:bg-neutral-100">
-            <Text className="text-base font-semibold text-neutral-800">
-              🏠 {t('common.backHome')}
-            </Text>
+            style={shadows.card}
+            className="min-h-[52px] mt-6 rounded-xl border border-line bg-surface flex-row items-center justify-center active:opacity-90">
+            <Ionicons name="home" size={18} color={colors.ink[700]} />
+            <Text className="ml-2 text-base font-bold text-ink-700">{t('common.backHome')}</Text>
           </Pressable>
         </ScrollView>
       )}

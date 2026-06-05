@@ -1,7 +1,10 @@
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
+import type { ComponentProps } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
 import { HospitalCard } from '@/src/components/hospital/hospital-card';
+import { colors } from '@/src/constants/colors';
 import { t } from '@/src/i18n';
 import { callPhone, openGoogleMaps } from '@/src/lib/linking';
 import type { Hospital } from '@/src/types/hospital';
@@ -28,13 +31,13 @@ export function ResultHospitalCard({ hospital, matchedDepartments }: Props) {
         {hospital.tel ? (
           <ActionButton
             label={t('symptoms.result.actions.call')}
-            icon="📞"
+            icon="call"
             onPress={() => callPhone(hospital.tel)}
           />
         ) : null}
         <ActionButton
           label={t('symptoms.result.actions.map')}
-          icon="🗺️"
+          icon="map"
           onPress={() =>
             openGoogleMaps({
               latitude: hospital.latitude,
@@ -44,7 +47,7 @@ export function ResultHospitalCard({ hospital, matchedDepartments }: Props) {
             })
           }
         />
-        <ActionButton label={t('symptoms.result.actions.detail')} icon="📄" onPress={goDetail} />
+        <ActionButton label={t('symptoms.result.actions.detail')} icon="document-text" onPress={goDetail} />
       </View>
     </View>
   );
@@ -56,7 +59,7 @@ function ActionButton({
   onPress,
 }: {
   label: string;
-  icon: string;
+  icon: ComponentProps<typeof Ionicons>['name'];
   onPress: () => void;
 }) {
   return (
@@ -64,9 +67,9 @@ function ActionButton({
       accessibilityRole="button"
       accessibilityLabel={label}
       onPress={onPress}
-      className="flex-1 min-h-[48px] flex-row items-center justify-center rounded-xl border border-neutral-200 bg-white active:bg-neutral-100">
-      <Text className="text-base mr-1">{icon}</Text>
-      <Text className="text-xs font-semibold text-neutral-700">{label}</Text>
+      className="flex-1 min-h-[48px] flex-row items-center justify-center rounded-xl border border-line bg-surface active:opacity-90">
+      <Ionicons name={icon} size={16} color={colors.ink[700]} />
+      <Text className="ml-1 text-xs font-bold text-ink-700">{label}</Text>
     </Pressable>
   );
 }

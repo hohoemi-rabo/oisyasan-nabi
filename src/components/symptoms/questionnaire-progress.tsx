@@ -18,9 +18,9 @@ export function QuestionnaireProgress({ current, total }: Props) {
         accessibilityRole="progressbar"
         accessibilityValue={{ min: 1, max: total, now: current }}
         className="h-2 w-full rounded-full bg-neutral-200 overflow-hidden">
-        <View className="h-2 rounded-full bg-blue-600" style={{ width: `${ratio * 100}%` }} />
+        <View className="h-2 rounded-full bg-teal-600" style={{ width: `${ratio * 100}%` }} />
       </View>
-      <Text className="text-xs text-neutral-500 mt-1 text-right">
+      <Text className="text-xs text-ink-500 mt-1 text-right">
         {t('symptoms.questionnaire.progress', { current, total })}
       </Text>
     </View>
